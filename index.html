@@ -1053,11 +1053,224 @@
     .hero-wild-one .word-wild { font-size: 38px; }
     .hero-wild-one .word-one { font-size: 70px; }
     .hero-date-badge { padding: 14px 24px; }
+    .welcome-card { padding: 32px 22px 28px; }
+    .welcome-step { padding: 12px 14px; }
+    .ws-icon { width: 32px; height: 32px; }
+    .welcome-title { font-size: 28px; }
   }
   @media (max-width: 380px) {
     .nav-tabs { gap: 14px; }
     .nav-tab { font-size: 10.5px; letter-spacing: 0.1em; }
     .reel-frame { flex: 0 0 124px; height: 160px; }
+  }
+
+  /* ═══════════════════════════════════════════
+     WELCOME MODAL — first-time visitor tutorial
+  ═══════════════════════════════════════════ */
+  .welcome-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(61,43,26,0.55);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    animation: welcomeFadeIn 0.4s ease forwards;
+  }
+  .welcome-overlay.closing {
+    animation: welcomeFadeOut 0.3s ease forwards;
+  }
+  @keyframes welcomeFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes welcomeFadeOut {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+  }
+
+  .welcome-card {
+    background: var(--cream);
+    background-image: var(--print-subtle);
+    background-size: 260px 220px;
+    border-radius: 28px;
+    padding: 40px 30px 32px;
+    max-width: 360px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(61,43,26,0.25);
+    border: 1px solid rgba(212,167,106,0.3);
+    text-align: center;
+    transform: translateY(20px) scale(0.96);
+    animation: welcomeCardIn 0.45s 0.1s ease forwards;
+    opacity: 0;
+  }
+  .welcome-overlay.closing .welcome-card {
+    animation: welcomeCardOut 0.25s ease forwards;
+  }
+  @keyframes welcomeCardIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes welcomeCardOut {
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to   { opacity: 0; transform: translateY(10px) scale(0.97); }
+  }
+
+  .welcome-title {
+    font-family: var(--f-script);
+    font-size: 32px;
+    color: var(--deep-rose);
+    margin-bottom: 4px;
+    line-height: 1.1;
+  }
+  .welcome-subtitle {
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    margin-bottom: 24px;
+  }
+
+  .welcome-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 28px;
+    text-align: left;
+  }
+  .welcome-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: var(--white);
+    border-radius: 14px;
+    padding: 14px 16px;
+    box-shadow: 0 2px 10px rgba(155,123,74,0.06);
+    border: 1px solid rgba(212,167,106,0.14);
+  }
+  .ws-icon {
+    flex-shrink: 0;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--white);
+    font-size: 16px;
+  }
+  .ws-icon.ws-home { background: var(--deep-rose); }
+  .ws-icon.ws-party { background: var(--deep-purple); }
+  .ws-icon.ws-love { background: var(--gold); }
+  .ws-text {
+    flex: 1;
+    min-width: 0;
+  }
+  .ws-label {
+    font-family: var(--f-body);
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rose-accessible);
+    margin-bottom: 2px;
+  }
+  .ws-desc {
+    font-family: var(--f-body);
+    font-weight: 300;
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.5;
+  }
+
+  .welcome-scroll-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-family: var(--f-body);
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 20px;
+  }
+  .welcome-scroll-hint svg {
+    animation: welcomeChevronBounce 1.2s ease-in-out infinite;
+  }
+  @keyframes welcomeChevronBounce {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(3px); }
+  }
+
+  .welcome-dismiss {
+    display: block;
+    width: 100%;
+    max-width: 240px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 100px;
+    background: linear-gradient(135deg, var(--rose-accessible), var(--deep-purple));
+    color: var(--white);
+    font-family: var(--f-body);
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(168,79,42,0.28);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .welcome-dismiss:active { transform: scale(0.97); }
+
+  /* ═══════════════════════════════════════════
+     SECTION SCROLL INDICATORS — pulsing arrows
+  ═══════════════════════════════════════════ */
+  .section-scroll-hint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 16px 0 0;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+  }
+  .section-scroll-hint.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .ssh-label {
+    font-family: var(--f-body);
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-xlight);
+  }
+  .ssh-arrows {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .ssh-arrows svg {
+    display: block;
+    color: var(--rose);
+    opacity: 0.5;
+  }
+  .ssh-arrows svg:first-child {
+    animation: sshBounce 1.6s ease-in-out infinite;
+    opacity: 0.7;
+  }
+  .ssh-arrows svg:last-child {
+    animation: sshBounce 1.6s 0.15s ease-in-out infinite;
+    opacity: 0.4;
+  }
+  @keyframes sshBounce {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(4px); }
   }
 
   /* ═══════════════════════════════════════════
@@ -1077,6 +1290,53 @@
 
 <!-- ── TOAST ── -->
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ════════════════════════════════════════════
+  WELCOME MODAL — first-time visitor guided tour
+════════════════════════════════════════════ -->
+<div class="welcome-overlay" id="welcome-modal" role="dialog" aria-modal="true" aria-label="Welcome guide" style="display:none;">
+  <div class="welcome-card">
+    <p class="welcome-title">Welcome!</p>
+    <p class="welcome-subtitle">Here&rsquo;s how to explore</p>
+
+    <div class="welcome-steps">
+      <div class="welcome-step">
+        <span class="ws-icon ws-home" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8L8 2L14 8M4 7V13H7V10H9V13H12V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <div class="ws-text">
+          <div class="ws-label">Home</div>
+          <div class="ws-desc">Party details, date, and location. Scroll down to RSVP.</div>
+        </div>
+      </div>
+      <div class="welcome-step">
+        <span class="ws-icon ws-party" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2V6M5 4L8 6L11 4M3 8H13M4 8V13H12V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <div class="ws-text">
+          <div class="ws-label">The Party</div>
+          <div class="ws-desc">RSVP form, schedule, dress code, and calendar links.</div>
+        </div>
+      </div>
+      <div class="welcome-step">
+        <span class="ws-icon ws-love" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 14S2 10 2 6C2 3.8 3.8 2 6 2C7.1 2 8 2.8 8 2.8S8.9 2 10 2C12.2 2 14 3.8 14 6C14 10 8 14 8 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <div class="ws-text">
+          <div class="ws-label">Send Love</div>
+          <div class="ws-desc">See Margot&rsquo;s photo reel, leave wishes, and add a party song.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="welcome-scroll-hint" aria-hidden="true">
+      <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Scroll down on each page for more
+    </div>
+
+    <button class="welcome-dismiss" id="welcome-dismiss" autofocus>Let&rsquo;s Explore</button>
+  </div>
+</div>
 
 <!-- ════════════════════════════════════════════
   STICKY NAV — single horizontal baseline
@@ -1204,6 +1464,15 @@
           Give Us a Roar If You Can Come
         </button>
       </div>
+
+      <!-- Scroll indicator -->
+      <div class="section-scroll-hint" data-scroll-hint aria-hidden="true">
+        <span class="ssh-label">More below</span>
+        <span class="ssh-arrows">
+          <svg width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M1 1L7 6L13 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M1 1L7 6L13 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </div>
     </div>
   </section>
 
@@ -1302,62 +1571,14 @@
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- PARTY SCHEDULE -->
-  <section class="schedule-section">
-    <div class="si">
-      <p class="s-eyebrow ey-green">Expedition Schedule</p>
-      <span class="leaf-divider" aria-hidden="true">
-        <svg viewBox="0 0 64 22" xmlns="http://www.w3.org/2000/svg">
-          <path d="M32 20 V 4"/>
-          <path d="M32 14 C 24 14, 18 12, 18 6 C 25 7, 30 10, 32 14 Z"/>
-          <path d="M32 10 C 40 10, 46 8, 46 2 C 39 3, 34 6, 32 10 Z"/>
-          <path d="M32 4 C 28 3, 28 -1, 32 -2 C 36 -1, 36 3, 32 4 Z"/>
-        </svg>
-      </span>
-      <div class="sched-list">
-        <div class="sched-row">
-          <span class="sr-dot" aria-hidden="true"></span>
-          <span class="sr-time">2:00 PM</span>
-          <div>
-            <div class="sr-event">Gates Open</div>
-            <div class="sr-note">Come in, grab a drink, find your people</div>
-          </div>
-        </div>
-        <div class="sched-row">
-          <span class="sr-dot" aria-hidden="true"></span>
-          <span class="sr-time">2:15 PM</span>
-          <div>
-            <div class="sr-event">Explore &amp; Mingle</div>
-            <div class="sr-note">Kid-friendly fun while the grown-ups catch up</div>
-          </div>
-        </div>
-        <div class="sched-row">
-          <span class="sr-dot" aria-hidden="true"></span>
-          <span class="sr-time">3:00 PM</span>
-          <div>
-            <div class="sr-event">The Cake Smash</div>
-            <div class="sr-note">The main event &mdash; Margot meets her first birthday cake</div>
-          </div>
-        </div>
-        <div class="sched-row">
-          <span class="sr-dot" aria-hidden="true"></span>
-          <span class="sr-time">3:30 PM</span>
-          <div>
-            <div class="sr-event">Gifts &amp; Books</div>
-            <div class="sr-note">Help build Margot&rsquo;s very first library</div>
-          </div>
-        </div>
-        <div class="sched-row">
-          <span class="sr-dot" aria-hidden="true"></span>
-          <span class="sr-time">4:30 PM</span>
-          <div>
-            <div class="sr-event">The Wild Send-Off</div>
-            <div class="sr-note">Thank you for joining Margot on her wildest adventure yet</div>
-          </div>
-        </div>
+      <!-- Scroll indicator -->
+      <div class="section-scroll-hint" data-scroll-hint aria-hidden="true">
+        <span class="ssh-label">Schedule &amp; dress code below</span>
+        <span class="ssh-arrows">
+          <svg width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M1 1L7 6L13 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M1 1L7 6L13 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
       </div>
     </div>
   </section>
@@ -1405,6 +1626,58 @@
               <h3>Book Instead of a Card</h3>
               <p>Bring a favorite childhood book, write a note inside to Margot, and help us build her very first library. She&rsquo;ll treasure them forever.</p>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTY SCHEDULE -->
+  <section class="schedule-section">
+    <div class="si">
+      <p class="s-eyebrow ey-green">Expedition Schedule</p>
+      <span class="leaf-divider" aria-hidden="true">
+        <svg viewBox="0 0 64 22" xmlns="http://www.w3.org/2000/svg">
+          <path d="M32 20 V 4"/>
+          <path d="M32 14 C 24 14, 18 12, 18 6 C 25 7, 30 10, 32 14 Z"/>
+          <path d="M32 10 C 40 10, 46 8, 46 2 C 39 3, 34 6, 32 10 Z"/>
+          <path d="M32 4 C 28 3, 28 -1, 32 -2 C 36 -1, 36 3, 32 4 Z"/>
+        </svg>
+      </span>
+      <div class="sched-list">
+        <div class="sched-row">
+          <span class="sr-dot" aria-hidden="true"></span>
+          <span class="sr-time">2:00 PM</span>
+          <div>
+            <div class="sr-event">Gates Open</div>
+          </div>
+        </div>
+        <div class="sched-row">
+          <span class="sr-dot" aria-hidden="true"></span>
+          <span class="sr-time">2:15 PM</span>
+          <div>
+            <div class="sr-event">Explore &amp; Mingle</div>
+          </div>
+        </div>
+        <div class="sched-row">
+          <span class="sr-dot" aria-hidden="true"></span>
+          <span class="sr-time">3:00 PM</span>
+          <div>
+            <div class="sr-event">The Cake Smash</div>
+          </div>
+        </div>
+        <div class="sched-row">
+          <span class="sr-dot" aria-hidden="true"></span>
+          <span class="sr-time">3:30 PM</span>
+          <div>
+            <div class="sr-event">Gifts &amp; Books</div>
+          </div>
+        </div>
+        <div class="sched-row">
+          <span class="sr-dot" aria-hidden="true"></span>
+          <span class="sr-time">4:30 PM</span>
+          <div>
+            <div class="sr-event">The Wild Send-Off</div>
           </div>
         </div>
       </div>
@@ -1476,7 +1749,14 @@
         <span class="rf-month" style="color: var(--text-dark);">Month 12</span>
       </div>
     </div>
-    <div style="height: 40px;"></div>
+    <!-- Scroll indicator -->
+    <div class="section-scroll-hint" data-scroll-hint aria-hidden="true" style="padding-bottom: 20px;">
+      <span class="ssh-label">Wishes &amp; songs below</span>
+      <span class="ssh-arrows">
+        <svg width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M1 1L7 6L13 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M1 1L7 6L13 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </div>
   </section>
 
   <!-- BIRTHDAY WISHES -->
@@ -1761,6 +2041,84 @@ window.addEventListener('load', () => {
       gravity: 0.6, scalar: 0.82 });
   }, 700);
 });
+
+/* ═══════════════════════════════════════════
+   WELCOME MODAL — first-time visitor guide
+═══════════════════════════════════════════ */
+(function() {
+  var STORAGE_KEY = 'margot-wild-one-welcomed';
+  var modal = document.getElementById('welcome-modal');
+  var dismissBtn = document.getElementById('welcome-dismiss');
+
+  function showModal() {
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    dismissBtn.focus();
+  }
+
+  function hideModal() {
+    modal.classList.add('closing');
+    setTimeout(function() {
+      modal.style.display = 'none';
+      modal.classList.remove('closing');
+      document.body.style.overflow = '';
+    }, 300);
+    try { localStorage.setItem(STORAGE_KEY, '1'); } catch(e) {}
+  }
+
+  /* Show on first visit (after a short delay to let confetti play) */
+  try {
+    if (!localStorage.getItem(STORAGE_KEY)) {
+      setTimeout(showModal, 1600);
+    }
+  } catch(e) {
+    /* localStorage blocked — always show */
+    setTimeout(showModal, 1600);
+  }
+
+  dismissBtn.addEventListener('click', hideModal);
+
+  /* Close on overlay click (outside card) */
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) hideModal();
+  });
+
+  /* Close on Escape */
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.style.display === 'flex') hideModal();
+  });
+})();
+
+/* ═══════════════════════════════════════════
+   SCROLL INDICATORS — fade out after scrolling
+═══════════════════════════════════════════ */
+(function() {
+  var hints = document.querySelectorAll('[data-scroll-hint]');
+  if (!hints.length) return;
+
+  var scrolled = false;
+
+  function checkScroll() {
+    if (scrolled) return;
+    if (window.scrollY > 120) {
+      scrolled = true;
+      hints.forEach(function(h) { h.classList.add('hidden'); });
+      window.removeEventListener('scroll', checkScroll);
+    }
+  }
+
+  window.addEventListener('scroll', checkScroll, { passive: true });
+
+  /* Also hide when switching tabs (new page starts at top) */
+  var origShowPage = window.showPage;
+  window.showPage = function(id, btn) {
+    origShowPage(id, btn);
+    /* Reset: show hints on new page, hide after scroll */
+    scrolled = false;
+    hints.forEach(function(h) { h.classList.remove('hidden'); });
+    window.addEventListener('scroll', checkScroll, { passive: true });
+  };
+})();
 </script>
 
 </body>
