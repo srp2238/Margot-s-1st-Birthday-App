@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Margot's Wild One — iPhone 17 Preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; min-height: 100vh; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: linear-gradient(180deg, #1A1410 0%, #2A1E15 100%);
+      color: #E8DCC8;
+      padding: 40px 20px 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+    }
+
+    /* ──────────────────────────────────────
+       HEADER
+    ─────────────────────────────────────── */
+    .header {
+      text-align: center;
+      max-width: 600px;
+    }
+    .header h1 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #C4633A;
+      margin-bottom: 10px;
+    }
+    .header p {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(232, 220, 200, 0.65);
+    }
+    .header .device-info {
+      margin-top: 10px;
+      font-weight: 300;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(232, 220, 200, 0.4);
+    }
+
+    /* ──────────────────────────────────────
+       DEVICE-PICKER (page selector)
+    ─────────────────────────────────────── */
+    .page-picker {
+      display: flex;
+      gap: 8px;
+      padding: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 0.5px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+    }
+    .page-picker button {
+      border: none;
+      background: transparent;
+      color: rgba(232, 220, 200, 0.55);
+      padding: 8px 18px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 999px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .page-picker button:hover { color: #E8DCC8; }
+    .page-picker button.active {
+      background: #C4633A;
+      color: #FFFFFF;
+    }
+
+    /* ──────────────────────────────────────
+       DEVICE FRAME — iPhone 17 (6.3" Pro class)
+       Logical viewport: 393 × 852
+       Scaled to fit screen comfortably
+    ─────────────────────────────────────── */
+    .device {
+      --w: 413px;          /* outer frame width  (393 inner + 20 bezel) */
+      --h: 872px;          /* outer frame height (852 inner + 20 bezel) */
+      width: var(--w);
+      height: var(--h);
+      background: #0A0807;
+      border-radius: 58px;
+      padding: 10px;
+      box-shadow:
+        0 0 0 1.5px #2A2622,
+        0 0 0 4px #0F0D0B,
+        0 24px 80px rgba(0, 0, 0, 0.55),
+        0 8px 24px rgba(0, 0, 0, 0.45);
+      position: relative;
+    }
+
+    /* Side buttons — visual flourish */
+    .device::before, .device::after {
+      content: '';
+      position: absolute;
+      background: #1A1612;
+      border-radius: 2px 0 0 2px;
+    }
+    .device::before {
+      width: 3px; height: 32px;
+      top: 110px; left: -3px;
+    }
+    .device::after {
+      width: 3px; height: 62px;
+      top: 160px; left: -3px;
+      box-shadow:
+        0 84px 0 #1A1612,   /* power-button shape on opposite side */
+        0 84px 0 #1A1612;
+    }
+    .device .btn-power {
+      position: absolute;
+      width: 3px; height: 92px;
+      background: #1A1612;
+      top: 200px; right: -3px;
+      border-radius: 0 2px 2px 0;
+    }
+
+    .device-screen {
+      width: 100%;
+      height: 100%;
+      background: #FDF8F0;
+      border-radius: 48px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Dynamic Island */
+    .dynamic-island {
+      position: absolute;
+      top: 11px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 124px;
+      height: 36px;
+      background: #000;
+      border-radius: 22px;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    /* Status bar — time + indicators */
+    .status-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      z-index: 9;
+      pointer-events: none;
+    }
+    .status-bar .time {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 17px;
+      color: #1A1410;
+      letter-spacing: -0.2px;
+      padding-top: 4px;
+    }
+    .status-bar .indicators {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding-top: 4px;
+    }
+    .status-bar svg { display: block; }
+
+    /* The actual invite iframe */
+    .invite-iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      background: #FDF8F0;
+    }
+
+    /* Home indicator */
+    .home-indicator {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 138px;
+      height: 5px;
+      background: #1A1410;
+      border-radius: 3px;
+      opacity: 0.85;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    /* ──────────────────────────────────────
+       FOOTER NOTE
+    ─────────────────────────────────────── */
+    .footer-note {
+      text-align: center;
+      max-width: 480px;
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 1.7;
+      color: rgba(232, 220, 200, 0.45);
+      margin-top: 10px;
+    }
+    .footer-note a {
+      color: #C4633A;
+      text-decoration: none;
+      font-weight: 400;
+    }
+    .footer-note a:hover { text-decoration: underline; }
+
+    /* ──────────────────────────────────────
+       RESPONSIVE — scale device down on narrow viewports
+    ─────────────────────────────────────── */
+    @media (max-width: 480px) {
+      body { padding: 20px 8px 40px; }
+      .device {
+        transform: scale(0.78);
+        transform-origin: top center;
+        margin-bottom: calc(-872px * 0.22);
+      }
+    }
+    @media (max-height: 920px) and (min-width: 481px) {
+      .device {
+        transform: scale(0.85);
+        transform-origin: top center;
+        margin-bottom: calc(-872px * 0.15);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>iPhone 17 Preview</h1>
+    <p>Margot&rsquo;s Wild One invitation — live rendering at the exact mobile viewport most guests will open it on.</p>
+    <div class="device-info">393 &times; 852 &middot; 6.3-inch display</div>
+  </div>
+
+  <div class="page-picker" role="tablist" aria-label="Preview which page">
+    <button class="active" data-page="home" onclick="loadPage('home', this)">Home</button>
+    <button data-page="party" onclick="loadPage('party', this)">The Party</button>
+    <button data-page="love" onclick="loadPage('love', this)">Send Love</button>
+  </div>
+
+  <div class="device" role="img" aria-label="iPhone 17 displaying Margot's birthday invitation">
+    <span class="btn-power" aria-hidden="true"></span>
+    <div class="device-screen">
+
+      <!-- Dynamic Island -->
+      <div class="dynamic-island" aria-hidden="true"></div>
+
+      <!-- Status bar overlay -->
+      <div class="status-bar" aria-hidden="true">
+        <span class="time">9:41</span>
+        <span class="indicators">
+          <!-- Cell signal bars -->
+          <svg width="18" height="11" viewBox="0 0 18 11" fill="#1A1410">
+            <rect x="0" y="7" width="3" height="4" rx="0.6"/>
+            <rect x="5" y="5" width="3" height="6" rx="0.6"/>
+            <rect x="10" y="2" width="3" height="9" rx="0.6"/>
+            <rect x="15" y="0" width="3" height="11" rx="0.6"/>
+          </svg>
+          <!-- Wi-Fi -->
+          <svg width="17" height="12" viewBox="0 0 17 12" fill="none" stroke="#1A1410" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 4.5 C 5 1.5, 12 1.5, 15 4.5"/>
+            <path d="M4.5 7 C 6.5 5, 10.5 5, 12.5 7"/>
+            <circle cx="8.5" cy="9.5" r="0.9" fill="#1A1410"/>
+          </svg>
+          <!-- Battery -->
+          <svg width="26" height="12" viewBox="0 0 26 12" fill="none">
+            <rect x="0.5" y="0.5" width="22" height="11" rx="3" stroke="#1A1410" stroke-width="1" fill="none" opacity="0.5"/>
+            <rect x="2" y="2" width="18" height="8" rx="1.6" fill="#1A1410"/>
+            <rect x="23" y="3.5" width="2" height="5" rx="1" fill="#1A1410" opacity="0.5"/>
+          </svg>
+        </span>
+      </div>
+
+      <!-- The actual invite (live render of index.html) -->
+      <iframe id="invite-frame"
+              class="invite-iframe"
+              src="index.html"
+              title="Margot's invitation, home page"
+              loading="eager"></iframe>
+
+      <!-- Home indicator -->
+      <div class="home-indicator" aria-hidden="true"></div>
+
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Pages switch via the segmented control above. The iframe loads the live <a href="index.html" target="_blank" rel="noopener">index.html</a> — every interaction (RSVP, wishes, song submit, scroll, tab nav) works exactly as it will on guests&rsquo; phones.
+  </div>
+
+  <script>
+    function loadPage(page, btn) {
+      // Update active button
+      document.querySelectorAll('.page-picker button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Reload iframe and call the page's nav after load
+      const frame = document.getElementById('invite-frame');
+      frame.src = 'index.html';
+      frame.addEventListener('load', function onLoad() {
+        try {
+          const tabs = frame.contentDocument.querySelectorAll('.nav-tab');
+          const idx = { home: 0, party: 1, love: 2 }[page];
+          if (tabs[idx] && typeof frame.contentWindow.showPage === 'function') {
+            frame.contentWindow.showPage(page, tabs[idx]);
+          }
+        } catch (e) { /* cross-origin safety — file:// should be fine */ }
+        frame.removeEventListener('load', onLoad);
+      });
+    }
+  </script>
+
+</body>
+</html>

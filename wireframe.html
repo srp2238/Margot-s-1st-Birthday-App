@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Margot Turns One 🪩</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Nunito:wght@300;400;600;700;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <style>
+
+  /* ═══════════════════════════════════════════
+     DESIGN TOKENS
+     FIX: --text-light raised from #A898B8 (2.8:1)
+          to #7B6B8B (4.6:1) for WCAG AA compliance
+  ═══════════════════════════════════════════ */
+  :root {
+    --blush:          #F9D5E0;
+    --rose:           #F2A8BC;
+    --deep-rose:      #C45C7A;    /* slightly deeper for contrast */
+    --lavender:       #E2D4F0;
+    --soft-purple:    #B8A0D8;
+    --deep-purple:    #7A5EA8;
+    --champagne:      #F5E6C8;
+    --gold:           #C49A30;
+    --baby-blue:      #C8DCF0;
+    --sky:            #6A9CC0;
+    --cream:          #FDFAF6;
+    --white:          #FFFFFF;
+    --text-dark:      #3E2D4A;
+    --text-mid:       #6A5678;
+    --text-light:     #7B6B8B;   /* ✅ WCAG AA on white */
+    --text-xlight:    #9E90AC;   /* decorative only */
+    --success:        #4CAF82;
+
+    --nav-h:          60px;
+    --badge-h:        36px;
+  }
+
+  /* ═══════════════════════════════════════════
+     RESET & BASE
+  ═══════════════════════════════════════════ */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--cream);
+    color: var(--text-dark);
+    font-family: 'Nunito', sans-serif;
+    overflow-x: hidden;
+    padding-top: calc(var(--badge-h) + var(--nav-h));
+    -webkit-font-smoothing: antialiased;
+  }
+  button { -webkit-tap-highlight-color: transparent; }
+
+  /* ═══════════════════════════════════════════
+     WIREFRAME BADGE
+  ═══════════════════════════════════════════ */
+  .wf-badge {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: var(--badge-h);
+    background: rgba(62, 45, 74, 0.96);
+    color: var(--champagne);
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; font-size: 11px; font-weight: 700;
+    letter-spacing: 1.5px; z-index: 300;
+    border-bottom: 1px solid rgba(212,168,64,0.3);
+    backdrop-filter: blur(10px);
+  }
+  .wf-badge .sep { opacity: 0.35; }
+
+  /* ═══════════════════════════════════════════
+     STICKY NAV BAR — mobile-first
+  ═══════════════════════════════════════════ */
+  .nav-bar {
+    position: fixed;
+    top: var(--badge-h); left: 0; right: 0;
+    height: var(--nav-h);
+    background: var(--white);
+    border-bottom: 2px solid rgba(196,92,122,0.32);
+    box-shadow: 0 3px 20px rgba(180,120,190,0.14);
+    display: flex; align-items: stretch;
+    z-index: 200;
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 6px;
+    padding: 0 16px;
+    font-family: 'Dancing Script', cursive;
+    font-size: 17px; color: var(--deep-rose);
+    white-space: nowrap; flex-shrink: 0;
+    border-right: 1px solid rgba(242,168,188,0.2);
+  }
+  .nav-tabs { display: flex; flex: 1; }
+  .nav-tab {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 2px;
+    border: none; background: transparent; cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    color: var(--text-light); position: relative;
+    transition: color 0.2s, background 0.2s;
+    min-height: 44px; /* ✅ accessibility tap target */
+    padding: 0 4px;
+  }
+  .nav-tab .t-icon { font-size: 17px; line-height: 1; }
+  .nav-tab .t-label {
+    font-size: 10px; font-weight: 800;
+    letter-spacing: 0.4px; text-transform: uppercase;
+  }
+  .nav-tab.active { color: var(--deep-rose); }
+  .nav-tab.active::after {
+    content: ''; position: absolute;
+    bottom: -2px; left: 6%; right: 6%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--deep-purple), var(--deep-rose));
+    border-radius: 3px 3px 0 0;
+  }
+  .nav-tab:not(.active):hover {
+    color: var(--soft-purple);
+    background: rgba(242,168,188,0.05);
+  }
+
+  /* ═══════════════════════════════════════════
+     PAGE PANELS
+  ═══════════════════════════════════════════ */
+  .page { display: none; }
+  .page.active { display: block; animation: pageIn 0.28s ease both; }
+  @keyframes pageIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ═══════════════════════════════════════════
+     SHARED SECTION STYLES
+  ═══════════════════════════════════════════ */
+  .si { max-width: 860px; margin: 0 auto; padding: 60px 22px; }
+  .s-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13.5px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--deep-rose);
+    text-align: center; margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .s-eyebrow.ey-purple { color: var(--deep-purple); }
+  .s-eyebrow.ey-gold   { color: var(--gold); }
+
+  /* Warm rule dividers between consecutive sections */
+  .page section + section {
+    border-top: 1px solid rgba(242, 168, 188, 0.2);
+  }
+  .s-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 5.5vw, 46px); font-weight: 700;
+    color: var(--text-dark); text-align: center;
+    line-height: 1.2; margin-bottom: 5px;
+  }
+  .s-sub {
+    text-align: center; color: var(--text-mid);
+    font-size: 15px; line-height: 1.8;
+    max-width: 460px; margin: 0 auto 28px;
+  }
+  .divider {
+    display: flex; align-items: center; gap: 10px;
+    justify-content: center; margin: 0 auto 28px;
+    max-width: 260px;
+  }
+  .divider::before, .divider::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--rose), transparent);
+  }
+  .divider i { font-size: 14px; font-style: normal; }
+  .card {
+    background: var(--white); border-radius: 20px;
+    padding: 28px 24px;
+    box-shadow: 0 4px 24px rgba(180,120,160,0.08);
+    border: 1px solid rgba(242,168,188,0.16);
+  }
+
+  /* ═══════════════════════════════════════════
+     FORM SYSTEM — labeled, accessible, mobile-friendly
+  ═══════════════════════════════════════════ */
+  .form-group { margin-bottom: 14px; }
+  .form-group label {
+    display: block;
+    font-size: 12px; font-weight: 800;
+    letter-spacing: 0.8px; text-transform: uppercase;
+    color: var(--text-mid); /* ✅ readable label */
+    margin-bottom: 6px;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    display: block; width: 100%;
+    min-height: 50px; /* ✅ mobile tap target */
+    background: var(--cream);
+    border: 1.5px solid rgba(196,92,122,0.22);
+    border-radius: 12px;
+    padding: 13px 16px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px; color: var(--text-dark);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+  }
+  .form-group textarea { min-height: 96px; resize: vertical; }
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--deep-rose);
+    box-shadow: 0 0 0 3px rgba(196,92,122,0.12);
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: var(--text-xlight); }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* Buttons — minimum 48px height for mobile */
+  .btn {
+    display: block; width: 100%;
+    min-height: 52px; /* ✅ mobile tap target */
+    border: none; border-radius: 100px;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-style: italic;
+    cursor: pointer; text-align: center;
+    transition: transform 0.15s, box-shadow 0.15s;
+    letter-spacing: 0.3px;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--deep-rose), var(--deep-purple));
+    color: var(--white);
+    box-shadow: 0 6px 22px rgba(196,92,122,0.3);
+  }
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold), #A07020);
+    color: var(--white);
+    box-shadow: 0 6px 18px rgba(196,154,48,0.3);
+  }
+  .btn-outline {
+    background: transparent;
+    border: 2px solid var(--deep-rose);
+    color: var(--deep-rose);
+    font-size: 16px;
+  }
+  .btn-ghost {
+    background: rgba(196,92,122,0.08);
+    color: var(--deep-rose);
+    font-size: 15px; font-style: normal;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+  }
+
+  /* ═══════════════════════════════════════════
+     TOAST NOTIFICATION
+  ═══════════════════════════════════════════ */
+  .toast {
+    position: fixed; bottom: 28px; left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--text-dark); color: var(--white);
+    padding: 12px 24px; border-radius: 100px;
+    font-size: 14px; font-weight: 700;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+    z-index: 500; white-space: nowrap;
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    pointer-events: none;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ═══════════════════════════════════════════
+     ADD TO CALENDAR DROPDOWN
+  ═══════════════════════════════════════════ */
+  .cal-wrapper { position: relative; display: inline-block; width: 100%; }
+  .cal-dropdown {
+    position: absolute; top: calc(100% + 8px); left: 0; right: 0;
+    background: var(--white);
+    border: 1px solid rgba(242,168,188,0.3);
+    border-radius: 16px;
+    box-shadow: 0 12px 36px rgba(180,120,160,0.18);
+    overflow: hidden; z-index: 100;
+    display: none;
+  }
+  .cal-dropdown.open { display: block; animation: pageIn 0.2s ease both; }
+  .cal-option {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 18px;
+    font-size: 15px; font-weight: 700; color: var(--text-dark);
+    cursor: pointer; text-decoration: none;
+    border-bottom: 1px solid rgba(242,168,188,0.12);
+    transition: background 0.15s;
+  }
+  .cal-option:last-child { border-bottom: none; }
+  .cal-option:hover { background: rgba(249,213,224,0.3); }
+  .cal-option .cal-icon { font-size: 22px; }
+
+  /* ═══════════════════════════════════════════
+     ANIMATIONS
+  ═══════════════════════════════════════════ */
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-9px); }
+  }
+  @keyframes twinkle {
+    0%,100% { opacity: 0.25; transform: scale(0.8); }
+    50%      { opacity: 0.8;  transform: scale(1.2); }
+  }
+  @keyframes pulse {
+    0%,100% { transform: scale(1); }
+    50%      { transform: scale(1.04); }
+  }
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+  }
+  /* Whimsical multi-directional disco shimmer for hero name */
+  @keyframes discoShimmer {
+    0%   { background-position:   0%  50%; }
+    20%  { background-position: 100%   0%; }
+    40%  { background-position:  80% 100%; }
+    60%  { background-position:  20%  80%; }
+    80%  { background-position: 100%  20%; }
+    100% { background-position:   0%  50%; }
+  }
+  @keyframes bounceDown {
+    0%,100% { transform: translateX(-50%) translateY(0); opacity: 0.6; }
+    50%      { transform: translateX(-50%) translateY(6px); opacity: 1; }
+  }
+  /* ═══════════════════════════════════════════
+     PAGE 1 · HOME
+     Sections: Hero → Countdown → Party Details → About Margot
+  ═══════════════════════════════════════════ */
+
+  /* HERO */
+  .hero {
+    min-height: auto;
+    background: linear-gradient(160deg, #FFF0F5 0%, #F5EEFF 45%, #EEF4FF 100%);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 48px 24px 80px; /* extra bottom for chevron */
+    position: relative; overflow: hidden;
+  }
+  /* Soft background orbs */
+  .orb {
+    position: absolute; border-radius: 50%;
+    filter: blur(60px); opacity: 0.3; pointer-events: none;
+  }
+  .o1 { width:360px;height:360px;background:var(--blush);  top:-80px;left:-90px; }
+  .o2 { width:300px;height:300px;background:var(--lavender);top:50%;right:-60px; }
+  .o3 { width:260px;height:260px;background:var(--baby-blue);bottom:0;left:18%; }
+  /* Floating sparkles */
+  .sparkles { position:absolute;inset:0;pointer-events:none;overflow:hidden; }
+  .sp {
+    position:absolute; font-style:normal;
+    animation:twinkle 3s ease-in-out infinite;
+    color: var(--rose); font-size:13px;
+  }
+  /* Disco ball cluster */
+  .disco-cluster {
+    display:flex;align-items:center;justify-content:center;
+    gap:14px; margin-bottom:20px; position:relative; z-index:1;
+  }
+  .ball-lg {
+    font-size:64px;
+    animation:float 4s ease-in-out infinite;
+    filter:drop-shadow(0 6px 18px rgba(200,160,255,0.35));
+  }
+  .ball-sm {
+    font-size:28px; opacity:0.7;
+    animation:float 3.2s ease-in-out infinite;
+  }
+  .ball-sm:first-child { animation-delay:0.5s; margin-top:12px; }
+  .ball-sm:last-child  { animation-delay:1.1s; margin-top:-6px; }
+  /* Photo ring */
+  .hero-photo {
+    width:152px;height:152px;border-radius:50%;
+    background:linear-gradient(135deg,var(--blush),var(--lavender));
+    border:4px solid var(--white);
+    box-shadow:0 6px 32px rgba(196,92,122,0.2),0 0 0 2px var(--rose);
+    display:flex;align-items:center;justify-content:center;
+    font-size:50px; margin:0 auto 22px;
+    animation:pulse 4s ease-in-out infinite;
+    position:relative; z-index:1;
+  }
+  .hero-photo-lbl {
+    position:absolute;bottom:-22px;
+    font-size:10.5px;color:var(--text-light);
+    white-space:nowrap;font-style:italic;
+  }
+  /* Name */
+  .hero-name {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(56px,13vw,108px);
+    font-weight:700;line-height:1;
+    padding-bottom:0.08em;
+    background: linear-gradient(
+      135deg,
+      var(--deep-rose)   0%,
+      var(--soft-purple) 20%,
+      var(--sky)         38%,
+      var(--gold)        55%,
+      var(--rose)        72%,
+      var(--deep-purple) 88%,
+      var(--deep-rose)   100%
+    );
+    background-size:400% 400%;
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    animation:discoShimmer 3.5s ease-in-out infinite;
+    margin:14px 0 5px; position:relative;z-index:1;
+  }
+  .hero-nickname {
+    font-family:'Dancing Script',cursive;
+    font-size:clamp(18px,4.5vw,30px);
+    color:var(--deep-rose);opacity:0.85;
+    position:relative;z-index:1;
+  }
+  .hero-tagline {
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:clamp(16px,3.5vw,24px);
+    color:var(--text-mid); margin:14px 0 4px;
+    position:relative;z-index:1;
+  }
+  .hero-pill {
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--white);border:1px solid var(--rose);border-radius:100px;
+    padding:10px 24px;
+    font-weight:800;color:var(--deep-rose);font-size:13.5px;
+    margin-top:16px;
+    box-shadow:0 4px 12px rgba(242,168,188,0.2);
+    position:relative;z-index:1;
+  }
+  /* Hero CTAs */
+  .hero-ctas {
+    display:flex;flex-direction:column;gap:10px;
+    width:100%;max-width:340px;
+    margin:22px auto 0;position:relative;z-index:1;
+  }
+  .btn-hero-rsvp {
+    min-height:54px;border-radius:100px;border:none;cursor:pointer;
+    background:linear-gradient(135deg,var(--deep-rose),var(--deep-purple));
+    color:var(--white);
+    font-family:'Playfair Display',serif;font-size:19px;font-style:italic;
+    box-shadow:0 8px 28px rgba(196,92,122,0.35);
+    animation:pulse 3s ease-in-out infinite;
+    transition:transform 0.15s;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .btn-hero-rsvp:active { transform:scale(0.97); }
+  /* Scroll chevron */
+  .scroll-cue {
+    position:absolute;bottom:22px;left:50%;
+    transform:translateX(-50%);
+    font-size:22px;color:var(--rose);
+    animation:bounceDown 1.8s ease-in-out infinite;
+    cursor:pointer; z-index:1;
+    border:none;background:transparent;
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  /* PARTY DETAILS */
+  .details-section { background:var(--cream); }
+  .details-grid {
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));
+    gap:12px;margin-bottom:20px;
+  }
+  .detail-card {
+    background: var(--deep-purple);   /* disco purple — matches wireframe badge */
+    border-radius:18px;padding:24px 16px 20px;
+    text-align:center;
+    box-shadow:0 4px 18px rgba(122,94,168,0.25);
+  }
+  .d-lbl {
+    font-size:9px;letter-spacing:2.5px;text-transform:uppercase;
+    color:rgba(255,255,255,0.6);margin-bottom:8px;font-weight:800;
+  }
+  .d-val {
+    font-family:'Playfair Display',serif;
+    font-size:17px;font-weight:700;color:var(--champagne);line-height:1.4;
+  }
+  .d-val.tbd { color:rgba(255,255,255,0.5);font-style:italic;font-size:14px;font-weight:400; }
+
+  /* RSVP optional extras toggle */
+  .optional-toggle {
+    display: flex; align-items: center; gap: 8px;
+    background: none; border: none; cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px; font-weight: 700;
+    color: var(--text-light); letter-spacing: 0.3px;
+    padding: 4px 0 14px; margin-top: 4px;
+    transition: color 0.2s;
+  }
+  .optional-toggle:hover { color: var(--deep-rose); }
+  .optional-toggle .ot-arrow { font-size: 10px; transition: transform 0.2s; }
+  .optional-toggle.open .ot-arrow { transform: rotate(180deg); }
+  .optional-extras { display: none; animation: fadeSlide 0.2s ease both; }
+  .optional-extras.open { display: block; }
+  @keyframes fadeSlide {
+    from { opacity:0; transform:translateY(-6px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  /* Add to Calendar */
+  .cal-btn {
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    width:100%;min-height:48px;
+    background:var(--cream);
+    border:1.5px solid rgba(196,92,122,0.3);border-radius:12px;
+    font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;
+    color:var(--deep-rose);cursor:pointer;
+    transition:background 0.15s,border-color 0.15s;
+    margin-top:16px;
+  }
+  .cal-btn:hover { background:var(--blush);border-color:var(--deep-rose); }
+  .host-note {
+    background:linear-gradient(135deg,var(--blush),var(--lavender));
+    border-radius:18px;padding:26px 28px;text-align:center;
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:18px;color:var(--text-dark);line-height:1.8;
+    border:1px solid rgba(242,168,188,0.25); margin-top:4px;
+  }
+
+  /* ABOUT MARGOT */
+  .about-section { background:linear-gradient(180deg,var(--cream),#F8F0FF); }
+  .about-grid {
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:14px;
+  }
+  .about-card {
+    background:var(--white);border-radius:18px;padding:24px 18px;text-align:center;
+    border:1px solid rgba(242,168,188,0.18);
+    box-shadow:0 4px 16px rgba(180,130,200,0.06);
+    transition:transform 0.2s,box-shadow 0.2s;
+  }
+  .about-card:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(180,130,200,0.13);}
+  .about-card .ac-icon { font-size:38px;margin-bottom:10px;display:block; }
+  .about-card h3 {
+    font-family:'Playfair Display',serif;font-size:15px;
+    color:var(--deep-rose);margin-bottom:6px;
+  }
+  .about-card p { font-size:13px;color:var(--text-mid);line-height:1.7; }
+
+  /* ═══════════════════════════════════════════
+     PAGE 2 · THE PARTY
+     Sections: RSVP (first!) → Schedule → Dress Code → Gifts
+  ═══════════════════════════════════════════ */
+
+  /* RSVP */
+  .rsvp-section { background:linear-gradient(160deg,#FFF0F5,#F5EEFF); }
+  .families-banner {
+    background:var(--white);
+    border:1.5px solid rgba(242,168,188,0.3);
+    border-radius:14px;padding:14px 20px;
+    display:flex;align-items:center;gap:12px;
+    margin-bottom:24px;
+    box-shadow:0 4px 14px rgba(242,168,188,0.1);
+  }
+  .fb-icon { font-size:28px; flex-shrink:0; }
+  .fb-text { font-size:14px; font-weight:700; color:var(--text-dark); }
+  .fb-text span { color:var(--deep-rose); }
+  .fb-sub { font-size:12px; color:var(--text-light); margin-top:2px; }
+  .rsvp-deadline {
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--blush);border-radius:10px;
+    padding:9px 16px;font-size:13px;font-weight:800;
+    color:var(--deep-rose);margin-bottom:22px;
+  }
+  .rsvp-card { max-width:540px;margin:0 auto; }
+  /* Thank-you state */
+  .rsvp-thanks {
+    display:none;text-align:center;padding:40px 20px;
+  }
+  .rsvp-thanks .ty-icon { font-size:56px;margin-bottom:16px; }
+  .rsvp-thanks h3 {
+    font-family:'Playfair Display',serif;font-size:28px;
+    color:var(--deep-rose);margin-bottom:8px;
+  }
+  .rsvp-thanks p { color:var(--text-mid);font-size:15px;line-height:1.7; }
+
+  /* SCHEDULE */
+  .schedule-section { background:var(--cream); }
+  .sched-list { display:flex;flex-direction:column;gap:11px; }
+  .sched-row {
+    display:flex;align-items:center;gap:16px;
+    background:var(--white);border-radius:14px;
+    padding:16px 20px;
+    box-shadow:0 3px 12px rgba(180,130,200,0.06);
+    border-left:4px solid var(--rose);
+    transition:transform 0.15s;
+  }
+  .sched-row:hover { transform:translateX(3px); }
+  .sched-row:nth-child(2){border-left-color:var(--soft-purple);}
+  .sched-row:nth-child(3){border-left-color:var(--deep-rose);}
+  .sched-row:nth-child(4){border-left-color:var(--sky);}
+  .sched-row:nth-child(5){border-left-color:var(--gold);}
+  .sr-icon { font-size:26px;flex-shrink:0; }
+  .sr-time {
+    font-family:'Playfair Display',serif;font-size:17px;
+    color:var(--deep-rose);min-width:54px;font-weight:700;
+  }
+  .sr-event { font-weight:800;font-size:15px;color:var(--text-dark); }
+  .sr-note  { font-size:12px;color:var(--text-light);margin-top:2px; }
+
+  /* DRESS CODE */
+  .dc-section { background:linear-gradient(135deg,#FFF0F5 0%,#F0E8FF 55%,#E8F4FF 100%); }
+  .dc-card {
+    background:var(--white);border-radius:24px;padding:40px 28px;text-align:center;
+    box-shadow:0 8px 32px rgba(180,130,200,0.1);
+    border:1px solid rgba(242,168,188,0.2);
+  }
+  .dc-balls { font-size:40px;margin:14px 0;letter-spacing:6px;animation:float 3s ease-in-out infinite; }
+  .dc-title {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(24px,5vw,40px);color:var(--text-dark);margin-bottom:8px;
+  }
+  .dc-body { font-size:15px;color:var(--text-mid);max-width:400px;margin:0 auto 20px;line-height:1.8; }
+  .tag-row { display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px; }
+  .tag {
+    background:var(--cream);border:1.5px solid var(--rose);border-radius:100px;
+    padding:5px 14px;font-size:12px;font-weight:800;color:var(--deep-rose);
+  }
+  .tag.p { border-color:var(--soft-purple);color:var(--deep-purple); }
+  .tag.b { border-color:var(--sky);color:var(--sky); }
+  .award-note { margin-top:20px;font-size:13px;color:var(--text-light);font-style:italic; }
+
+  /* GIFT NOTE */
+  .gift-section { background:var(--cream); }
+  .gift-grid {
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:16px;
+  }
+  .gift-card {
+    background:var(--white);border-radius:20px;padding:28px 22px;text-align:center;
+    box-shadow:0 4px 16px rgba(180,130,200,0.06);
+    border:1px solid rgba(242,168,188,0.16);
+  }
+  .gift-card .g-icon { font-size:44px;margin-bottom:13px;display:block; }
+  .gift-card h3 {
+    font-family:'Playfair Display',serif;font-size:18px;
+    color:var(--text-dark);margin-bottom:8px;
+  }
+  .gift-card p { font-size:13.5px;color:var(--text-mid);line-height:1.75; }
+
+  /* ═══════════════════════════════════════════
+     PAGE 3 · SEND SOME LOVE
+     Sections: Photo Reel → Birthday Wishes → Send a Card
+  ═══════════════════════════════════════════ */
+
+  /* PHOTO REEL */
+  .reel-section { background:linear-gradient(180deg,#F8F0FF,var(--cream));overflow:hidden; }
+  .reel-scroll {
+    display:flex;gap:11px;overflow-x:auto;
+    padding:6px 22px 22px;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:thin;scrollbar-color:var(--rose) transparent;
+    -webkit-overflow-scrolling:touch;
+  }
+  .reel-frame {
+    flex:0 0 138px;height:176px;
+    background:var(--white);
+    border:2px solid rgba(242,168,188,0.25);border-radius:16px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    font-size:26px;gap:7px;cursor:pointer;
+    transition:transform 0.2s,border-color 0.2s,box-shadow 0.2s;
+    box-shadow:0 3px 12px rgba(180,130,200,0.06);
+    scroll-snap-align:start;
+  }
+  .reel-frame:hover{transform:scale(1.05) translateY(-3px);border-color:var(--rose);}
+  .rf-month { font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-light); }
+
+  /* BIRTHDAY WISHES */
+  .wishes-section { background:var(--cream); }
+  .wishes-layout {
+    display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;
+  }
+  .wish-form-card {
+    background:var(--white);border-radius:20px;padding:28px;
+    box-shadow:0 5px 22px rgba(180,130,200,0.08);
+    border:1px solid rgba(242,168,188,0.16);
+  }
+  .bubbles-lbl {
+    font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
+    color:var(--text-light);font-weight:800;margin-bottom:12px;
+  }
+  .wish-bubbles { display:flex;flex-direction:column;gap:11px; }
+  .wb {
+    background:var(--white);border-radius:14px;padding:16px 18px;
+    box-shadow:0 3px 12px rgba(180,130,200,0.06);
+    border:1px solid rgba(242,168,188,0.16);
+  }
+  .wb-from {
+    font-size:10.5px;font-weight:800;letter-spacing:1px;
+    text-transform:uppercase;color:var(--deep-rose);margin-bottom:4px;
+  }
+  .wb-msg {
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:16px;color:var(--text-dark);line-height:1.7;
+  }
+
+
+  /* ═══════════════════════════════════════════
+     PAGE 4 · TRAVEL
+     Sections: Hotels → Add a Song → Hashtag
+  ═══════════════════════════════════════════ */
+
+  /* HOTELS */
+  .hotels-section { background:var(--cream); }
+  .hotel-grid {
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:16px;
+  }
+  .hotel-card {
+    background:var(--white);border-radius:18px;padding:24px;
+    box-shadow:0 4px 16px rgba(168,200,232,0.12);
+    border:1px solid rgba(168,200,232,0.25);
+  }
+  .hotel-card h3 {
+    font-family:'Playfair Display',serif;font-size:16px;
+    color:var(--text-dark);margin-bottom:4px;
+  }
+  .h-dist { font-size:12px;color:var(--sky);font-weight:800;margin-bottom:8px; }
+  .hotel-card p { font-size:13px;color:var(--text-mid);line-height:1.7;margin-bottom:14px; }
+  .h-link {
+    display:inline-block;border:1.5px solid var(--sky);border-radius:100px;
+    padding:7px 18px;font-size:12.5px;font-weight:800;color:var(--sky);text-decoration:none;
+    min-height:36px;
+  }
+
+  /* SONG */
+  .song-section { background:linear-gradient(135deg,#F8F0FF,#FFF0F5); }
+  .song-form-wrap { max-width:440px;margin:0 auto; }
+  .song-form-card {
+    background:var(--white);border-radius:20px;padding:32px;
+    box-shadow:0 5px 22px rgba(180,130,200,0.08);
+    border:1px solid rgba(184,160,216,0.2);
+  }
+
+  /* HASHTAG */
+  .hashtag-section { background:linear-gradient(160deg,#F5EEFF,#FFF0F5);text-align:center; }
+  .hashtag-display {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(32px,7vw,72px);font-weight:700;font-style:italic;
+    background:linear-gradient(135deg,var(--deep-rose),var(--deep-purple),var(--sky));
+    background-size:200% auto;
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    margin:16px 0 8px;animation:shimmer 6s linear infinite;
+    line-height:1.1;
+  }
+  .hashtag-note { font-size:15px;color:var(--text-mid);max-width:380px;margin:0 auto 24px;line-height:1.8; }
+  .copy-btn {
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    background:var(--white);
+    border:1.5px solid var(--rose);border-radius:100px;
+    padding:12px 28px;font-size:14px;font-weight:800;
+    color:var(--deep-rose);cursor:pointer;
+    box-shadow:0 4px 14px rgba(242,168,188,0.18);
+    transition:background 0.15s,transform 0.1s;
+    min-height:48px;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .copy-btn:active { transform:scale(0.97);background:var(--blush); }
+  .hashtag-tbd { font-size:12px;color:var(--text-light);font-style:italic;margin-top:12px; }
+
+  /* ═══════════════════════════════════════════
+     SHARED FOOTER
+  ═══════════════════════════════════════════ */
+  .page-footer {
+    background:var(--text-dark);text-align:center;
+    padding:28px 24px;
+  }
+  .pf-title {
+    font-family:'Playfair Display',serif;font-style:italic;
+    font-size:18px;color:var(--blush);margin-bottom:6px;
+  }
+  .pf-sub { font-size:12px;color:rgba(255,255,255,0.35);line-height:1.7; }
+
+  /* ═══════════════════════════════════════════
+     RESPONSIVE — mobile-first adjustments
+  ═══════════════════════════════════════════ */
+  @media(max-width:640px){
+    .nav-brand { display:none; }
+    .field-row  { grid-template-columns:1fr; }
+    .wishes-layout { grid-template-columns:1fr; }
+    .si { padding:48px 18px; }
+    .dc-card { padding:28px 18px; }
+    .rsvp-card { padding:0; }
+    .card { padding:22px 18px; }
+  }
+  @media(max-width:380px){
+    .nav-tab .t-label { display:none; }
+    .nav-tab .t-icon  { font-size:20px; }
+  }
+
+  </style>
+</head>
+<body>
+
+<!-- ── WIREFRAME BADGE ── -->
+<div class="wf-badge">
+  🪩 WIREFRAME PREVIEW
+  <span class="sep">·</span>
+  MARGOT TURNS ONE
+  <span class="sep">·</span>
+  Share with Harry &amp; Susan · All content is placeholder
+</div>
+
+<!-- ── TOAST ── -->
+<div class="toast" id="toast"></div>
+
+<!-- ════════════════════════════════════════════
+  STICKY NAV
+════════════════════════════════════════════ -->
+<nav class="nav-bar" role="navigation" aria-label="Main navigation">
+  <div class="nav-brand" aria-hidden="true">🪩 Margot</div>
+  <div class="nav-tabs" role="tablist">
+    <button class="nav-tab active" role="tab" aria-selected="true"
+      onclick="showPage('home',this)" aria-controls="page-home">
+      <span class="t-icon">🏠</span>
+      <span class="t-label">Home</span>
+    </button>
+    <button class="nav-tab" role="tab" aria-selected="false"
+      onclick="showPage('party',this)" aria-controls="page-party">
+      <span class="t-icon">🎉</span>
+      <span class="t-label">The Party</span>
+    </button>
+    <button class="nav-tab" role="tab" aria-selected="false"
+      onclick="showPage('love',this)" aria-controls="page-love">
+      <span class="t-icon">💌</span>
+      <span class="t-label">Send Love</span>
+    </button>
+    <button class="nav-tab" role="tab" aria-selected="false"
+      onclick="showPage('travel',this)" aria-controls="page-travel">
+      <span class="t-icon">✈️</span>
+      <span class="t-label">Travel</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════
+  PAGE 1 · HOME
+════════════════════════════════════════════ -->
+<div id="page-home" class="page active" role="tabpanel">
+
+  <!-- HERO -->
+  <section class="hero" id="home-hero">
+    <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+    <div class="sparkles" aria-hidden="true">
+      <span class="sp" style="left:7%;top:17%;animation-delay:0s">✦</span>
+      <span class="sp" style="left:16%;top:72%;animation-delay:1.2s;font-size:10px">✦</span>
+      <span class="sp" style="left:80%;top:19%;animation-delay:0.6s;font-size:17px">✦</span>
+      <span class="sp" style="left:88%;top:65%;animation-delay:1.9s">✦</span>
+      <span class="sp" style="left:50%;top:7%;animation-delay:2.1s;font-size:9px">✦</span>
+      <span class="sp" style="left:32%;top:86%;animation-delay:0.4s;font-size:15px">✦</span>
+      <span class="sp" style="left:63%;top:81%;animation-delay:1.5s;font-size:10px">✦</span>
+      <span class="sp" style="left:93%;top:39%;animation-delay:0.9s">✦</span>
+    </div>
+
+    <!-- Disco balls -->
+    <div class="disco-cluster" aria-hidden="true">
+      <span class="ball-sm">🪩</span>
+      <span class="ball-lg">🪩</span>
+      <span class="ball-sm">🪩</span>
+    </div>
+
+    <!-- Photo -->
+    <div class="hero-photo" role="img" aria-label="Photo of Margot (placeholder)">
+      👶
+      <span class="hero-photo-lbl">📸 Photo of Margot</span>
+    </div>
+
+    <!-- Name -->
+    <h1 class="hero-name">Margot</h1>
+    <p class="hero-nickname">— our little disco queen —</p>
+    <div class="hero-pill">🪩 &nbsp;Saturday, July 11, 2026&nbsp;·&nbsp;[Venue TBD]</div>
+
+    <!-- CTAs -->
+    <div class="hero-ctas">
+      <button class="btn-hero-rsvp" onclick="showPage('party', document.querySelectorAll('.nav-tab')[1]); window.scrollTo({top:0});" aria-label="RSVP for the party">
+        🪩 RSVP 🪩
+      </button>
+    </div>
+
+    <!-- Scroll cue -->
+    <button class="scroll-cue" onclick="document.querySelector('.details-section').scrollIntoView({behavior:'smooth'})" aria-label="Scroll down to see more">
+      ↓
+    </button>
+  </section>
+
+  <!-- PARTY DETAILS + ADD TO CALENDAR -->
+  <section class="details-section">
+    <div class="si">
+      <p class="s-eyebrow ey-purple">You're invited</p>
+      <h2 class="s-title">Party Details</h2>
+      <div class="divider"><i>🎉</i></div>
+      <div class="details-grid">
+        <div class="detail-card">
+          <div class="d-lbl">Date</div>
+          <div class="d-val">Saturday, July 11, 2026</div>
+        </div>
+        <div class="detail-card">
+          <div class="d-lbl">Time</div>
+          <div class="d-val tbd">TBD — e.g. 2:00–5:00 PM</div>
+        </div>
+        <div class="detail-card">
+          <div class="d-lbl">Venue</div>
+          <div class="d-val tbd">TBD — Venue name here</div>
+        </div>
+        <div class="detail-card">
+          <div class="d-lbl">Address</div>
+          <div class="d-val tbd">TBD — Street address</div>
+        </div>
+      </div>
+
+      <!-- ✅ Add to Calendar -->
+      <div class="cal-wrapper">
+        <button class="cal-btn" onclick="toggleCal()" aria-expanded="false" id="cal-trigger">
+          📅 &nbsp; Add to Calendar
+          <span style="font-size:11px;opacity:0.6;">▾</span>
+        </button>
+        <div class="cal-dropdown" id="cal-dropdown" role="menu">
+          <a class="cal-option" role="menuitem" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Margot%27s+1st+Birthday+Party+%F0%9F%AA%A9&dates=20260711T140000/20260711T170000&details=You%27re+invited+to+celebrate+Margot%27s+first+birthday!&location=TBD" target="_blank" rel="noopener">
+            <span class="cal-icon">📅</span> Google Calendar
+          </a>
+          <a class="cal-option" role="menuitem" href="#" onclick="downloadICS(); return false;">
+            <span class="cal-icon">🍎</span> Apple / Outlook (.ics)
+          </a>
+        </div>
+      </div>
+
+      <div class="host-note" style="margin-top:20px;">
+        "[ A warm personal note from Harry &amp; Susan to their guests — something that sounds just like them 💛 ]"
+      </div>
+    </div>
+  </section>
+
+  <!-- ALL ABOUT MARGOT -->
+  <section class="about-section">
+    <div class="si">
+      <p class="s-eyebrow ey-gold">The birthday girl</p>
+      <h2 class="s-title">All About Margot</h2>
+      <div class="divider"><i>🌸</i></div>
+      <p class="s-sub">Meet the little lady of the hour — curious, smiley, and absolutely full of joy. Here's a little of what makes her so wonderfully <em>her</em>.</p>
+      <div class="about-grid">
+        <div class="about-card"><span class="ac-icon">🦒</span><h3>Her Best Friend</h3><p>Sophie la Girafe goes absolutely everywhere with her. Truly non-negotiable.</p></div>
+        <div class="about-card"><span class="ac-icon">😄</span><h3>Always Smiling</h3><p>Margot lights up every room she enters. That smile will melt your heart.</p></div>
+        <div class="about-card"><span class="ac-icon">🔍</span><h3>Wonderfully Curious</h3><p>She finds magic in absolutely everything. The world is one big discovery.</p></div>
+        <div class="about-card"><span class="ac-icon">😂</span><h3>The Laugh</h3><p>Her laugh is the most contagious thing you'll ever hear. Fair warning.</p></div>
+        <div class="about-card"><span class="ac-icon">🎉</span><h3>A Big Milestone</h3><p style="font-style:italic;color:var(--text-light)">[Harry &amp; Susan share a favorite first-year moment here]</p></div>
+        <div class="about-card"><span class="ac-icon">🪩</span><h3>Why Disco?</h3><p style="font-style:italic;color:var(--text-light)">[Harry &amp; Susan share why they chose the disco theme for Margot's big day]</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    <div class="pf-title">Margot — One Year of Wonder 🪩</div>
+    <div class="pf-sub">Made with love for the whole family · July 11, 2026<br/>Private invitation · Please do not share this link publicly</div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════════
+  PAGE 2 · THE PARTY
+  RSVP first — most important action
+════════════════════════════════════════════ -->
+<div id="page-party" class="page" role="tabpanel">
+
+  <!-- RSVP -->
+  <section class="rsvp-section">
+    <div class="si">
+      <p class="s-eyebrow">We'd love to have you there</p>
+      <h2 class="s-title">RSVP</h2>
+      <div class="divider"><i>💌</i></div>
+
+      <!-- ✅ Families coming counter -->
+      <div class="families-banner" role="status" aria-live="polite">
+        <span class="fb-icon">🎉</span>
+        <div>
+          <div class="fb-text"><span>14 families</span> are already coming — will you join them?</div>
+          <div class="fb-sub">Counter updates as RSVPs come in</div>
+        </div>
+      </div>
+
+      <div class="rsvp-card">
+        <div class="rsvp-deadline">📅 Please RSVP by [Date TBD]</div>
+
+        <!-- ✅ Formspree form with proper labeled fields -->
+        <form id="rsvp-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST"
+              onsubmit="handleRSVP(event)">
+
+          <div class="form-group">
+            <label for="rsvp-name">Your Name</label>
+            <input type="text" id="rsvp-name" name="name"
+                   placeholder="e.g. Sarah Johnson" required autocomplete="name"/>
+          </div>
+
+          <div class="form-group">
+            <label for="rsvp-email">Email Address</label>
+            <input type="email" id="rsvp-email" name="email"
+                   placeholder="your@email.com" required autocomplete="email"/>
+          </div>
+
+          <div class="field-row">
+            <div class="form-group">
+              <label for="rsvp-adults">Adults Attending</label>
+              <input type="number" id="rsvp-adults" name="adults"
+                     placeholder="e.g. 2" min="0" max="20" required/>
+            </div>
+            <div class="form-group">
+              <label for="rsvp-kids">Little Ones Attending</label>
+              <input type="number" id="rsvp-kids" name="kids"
+                     placeholder="e.g. 1" min="0" max="20"/>
+            </div>
+          </div>
+
+          <button type="button" class="optional-toggle" id="rsvp-opt-toggle"
+                  onclick="toggleRSVPExtras()" aria-expanded="false" aria-controls="rsvp-extras">
+            <span class="ot-arrow">▼</span> Optional details &mdash; dietary, notes
+          </button>
+          <div class="optional-extras" id="rsvp-extras">
+            <div class="form-group">
+              <label for="rsvp-dietary">Dietary Restrictions or Allergies</label>
+              <input type="text" id="rsvp-dietary" name="dietary"
+                     placeholder="None, vegetarian, nut allergy, etc."/>
+            </div>
+            <div class="form-group">
+              <label for="rsvp-notes">Anything else we should know?</label>
+              <textarea id="rsvp-notes" name="notes"
+                        placeholder="Optional — we love hearing from you!"></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            🪩 We'll Be There! 🪩
+          </button>
+        </form>
+
+        <!-- Thank-you state (shown on submit) -->
+        <div class="rsvp-thanks" id="rsvp-thanks" aria-live="polite">
+          <div class="ty-icon">🎉</div>
+          <h3>You're on the list!</h3>
+          <p>We're so excited you'll be there to celebrate Margot's big day. See you on July 11th! 💛</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTY SCHEDULE -->
+  <section class="schedule-section">
+    <div class="si">
+      <p class="s-eyebrow ey-purple">Plan your day</p>
+      <h2 class="s-title">The Party Setlist</h2>
+      <div class="divider"><i>🎵</i></div>
+      <p class="s-sub">Here's how the day flows — great for planning around nap times!</p>
+      <div class="sched-list">
+        <div class="sched-row"><span class="sr-icon">🚪</span><span class="sr-time">2:00 PM</span><div><div class="sr-event">Doors Open</div><div class="sr-note">Come in, grab a drink, find your people</div></div></div>
+        <div class="sched-row"><span class="sr-icon">🎈</span><span class="sr-time">2:15 PM</span><div><div class="sr-event">Play Time &amp; Mingling</div><div class="sr-note">Kid-friendly fun while the grown-ups catch up</div></div></div>
+        <div class="sched-row"><span class="sr-icon">🎂</span><span class="sr-time">3:00 PM</span><div><div class="sr-event">🪩 The Cake Smash</div><div class="sr-note">The main event — Margot meets her first birthday cake</div></div></div>
+        <div class="sched-row"><span class="sr-icon">🎁</span><span class="sr-time">3:30 PM</span><div><div class="sr-event">Gifts &amp; Books</div><div class="sr-note">Help build Margot's very first library</div></div></div>
+        <div class="sched-row"><span class="sr-icon">💛</span><span class="sr-time">4:30 PM</span><div><div class="sr-event">Last Dance &amp; Farewell</div><div class="sr-note">Thank you for celebrating with our Margot</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DRESS CODE -->
+  <section class="dc-section">
+    <div class="si">
+      <div class="dc-card">
+        <p class="s-eyebrow">Dress code</p>
+        <h2 class="dc-title">Come Disco Ready ✨</h2>
+        <div class="dc-balls" aria-hidden="true">🪩 💃 🕺 🪩</div>
+        <p class="dc-body">Margot is going full disco for her very first birthday — break out your most sparkly, twirly outfits. The more shimmer the better!</p>
+        <div class="tag-row">
+          <span class="tag">✨ Sequins</span>
+          <span class="tag">💫 Glitter</span>
+          <span class="tag p">💜 Soft Purple</span>
+          <span class="tag">🌸 Blush &amp; Pink</span>
+          <span class="tag b">🩵 Baby Blue</span>
+          <span class="tag">🥂 Champagne</span>
+          <span class="tag p">🌟 All of the above</span>
+        </div>
+        <p class="award-note">👑 Best dressed toddler &amp; best dressed adult will be crowned at the party</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GIFT NOTE -->
+  <section class="gift-section">
+    <div class="si">
+      <p class="s-eyebrow ey-gold">Gifts for Margot</p>
+      <h2 class="s-title">A Little Note on Gifts</h2>
+      <div class="divider"><i>🎁</i></div>
+      <p class="s-sub">Your presence is the greatest gift. But if you'd like to bring something, here are a few ideas from her parents.</p>
+      <div class="gift-grid">
+        <div class="gift-card"><span class="g-icon">📚</span><h3>Book Instead of a Card</h3><p>Bring a favorite childhood book, write a note inside to Margot, and help us build her very first library. She'll treasure them forever. 💛</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    <div class="pf-title">We can't wait to dance with you 🪩</div>
+    <div class="pf-sub">See you on the dance floor · July 11, 2026<br/>Private invitation · Please do not share this link publicly</div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════════
+  PAGE 3 · SEND SOME LOVE
+════════════════════════════════════════════ -->
+<div id="page-love" class="page" role="tabpanel">
+
+  <!-- PHOTO REEL -->
+  <section class="reel-section" style="padding-bottom:0;">
+    <div class="si" style="padding-bottom:0;">
+      <p class="s-eyebrow ey-purple">One tiny human</p>
+      <h2 class="s-title">Margot's First Year</h2>
+      <div class="divider"><i>📸</i></div>
+      <p class="s-sub">Twelve months of pure magic. Scroll through and watch our little Margot grow. 🥹</p>
+    </div>
+    <div class="reel-scroll" role="region" aria-label="Photo reel of Margot's first year">
+      <div class="reel-frame"><span>🍼</span><span class="rf-month">Month 1</span></div>
+      <div class="reel-frame"><span>😴</span><span class="rf-month">Month 2</span></div>
+      <div class="reel-frame"><span>👀</span><span class="rf-month">Month 3</span></div>
+      <div class="reel-frame"><span>😄</span><span class="rf-month">Month 4</span></div>
+      <div class="reel-frame"><span>🌸</span><span class="rf-month">Month 5</span></div>
+      <div class="reel-frame"><span>🦒</span><span class="rf-month">Month 6</span></div>
+      <div class="reel-frame"><span>🎵</span><span class="rf-month">Month 7</span></div>
+      <div class="reel-frame"><span>🏃</span><span class="rf-month">Month 8</span></div>
+      <div class="reel-frame"><span>🍂</span><span class="rf-month">Month 9</span></div>
+      <div class="reel-frame"><span>❄️</span><span class="rf-month">Month 10</span></div>
+      <div class="reel-frame"><span>🌷</span><span class="rf-month">Month 11</span></div>
+      <div class="reel-frame" style="border-color:var(--rose);background:linear-gradient(135deg,var(--blush),var(--lavender));"><span>🎂</span><span class="rf-month" style="color:var(--deep-rose)">Month 12 🎉</span></div>
+    </div>
+    <div style="height:40px;"></div>
+  </section>
+
+  <!-- BIRTHDAY WISHES -->
+  <section class="wishes-section">
+    <div class="si">
+      <p class="s-eyebrow ey-gold">Here or far away</p>
+      <h2 class="s-title">Wishes for Margot</h2>
+      <div class="divider"><i>💛</i></div>
+      <p class="s-sub">Joining us in person or celebrating from afar — leave Margot a wish, a memory, or a little piece of wisdom she'll read someday. We're saving every single one. 🥹</p>
+      <div class="wishes-layout">
+        <!-- Wish form -->
+        <div class="wish-form-card">
+          <form id="wish-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST"
+                onsubmit="handleForm(event,'wish-form','wish-thanks')">
+            <div class="form-group">
+              <label for="wish-name">Your Name</label>
+              <input type="text" id="wish-name" name="name" placeholder="e.g. Aunt Jennifer" required/>
+            </div>
+            <div class="form-group">
+              <label for="wish-msg">Your Wish for Margot</label>
+              <textarea id="wish-msg" name="message"
+                        placeholder="Write something she'll treasure forever…" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="font-size:16px;">💛 Leave My Wish 💛</button>
+          </form>
+          <div id="wish-thanks" style="display:none;text-align:center;padding:20px 0;">
+            <div style="font-size:44px;margin-bottom:10px;">💛</div>
+            <p style="font-family:'Playfair Display',serif;font-size:20px;color:var(--deep-rose);margin-bottom:6px;">Your wish has been saved for Margot</p>
+            <p style="font-size:14px;color:var(--text-mid);">She'll read it someday and feel so loved.</p>
+          </div>
+        </div>
+        <!-- Sample wishes -->
+        <div>
+          <div class="bubbles-lbl">Sample wishes — real ones appear here</div>
+          <div class="wish-bubbles">
+            <div class="wb"><div class="wb-from">Grandma Carol</div><div class="wb-msg">"May you always dance like nobody's watching, and laugh until your belly hurts. We love you to the moon."</div></div>
+            <div class="wb"><div class="wb-from">Uncle Jake</div><div class="wb-msg">"Happy first birthday, sweet girl. I can't wait to watch you grow into the incredible person you already are."</div></div>
+            <div class="wb"><div class="wb-from">The Hendersons</div><div class="wb-msg">"Margot — here's to Sophie, big laughs, and all the sparkle in the world. 🪩"</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADD A SONG -->
+  <section class="song-section">
+    <div class="si" style="text-align:center;">
+      <p class="s-eyebrow">Help us build her playlist</p>
+      <h2 class="s-title">Add a Song for Margot 🎵</h2>
+      <div class="divider"><i>🎶</i></div>
+      <p class="s-sub">Every great disco needs a killer soundtrack. Submit your request and we'll add it to Margot's official 1st birthday playlist!</p>
+      <div class="song-form-wrap">
+        <div class="song-form-card">
+          <form id="song-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST"
+                onsubmit="handleForm(event,'song-form','song-thanks')">
+            <div class="form-group">
+              <label for="song-name">Your Name</label>
+              <input type="text" id="song-name" name="name" placeholder="e.g. Uncle Tim" required/>
+            </div>
+            <div class="form-group">
+              <label for="song-title">Song Title</label>
+              <input type="text" id="song-title" name="song" placeholder="e.g. Can't Stop the Feeling!" required/>
+            </div>
+            <div class="form-group">
+              <label for="song-artist">Artist</label>
+              <input type="text" id="song-artist" name="artist" placeholder="e.g. Justin Timberlake" required/>
+            </div>
+            <div class="form-group">
+              <label for="song-why">Why this song? (optional)</label>
+              <input type="text" id="song-why" name="reason" placeholder="Makes me think of Margot because…"/>
+            </div>
+            <button type="submit" class="btn btn-gold">🎶 Add to Margot's Playlist 🎶</button>
+          </form>
+          <div id="song-thanks" style="display:none;text-align:center;padding:20px 0;">
+            <div style="font-size:44px;margin-bottom:10px;">🎵</div>
+            <p style="font-family:'Playfair Display',serif;font-size:20px;color:var(--gold);margin-bottom:6px;">Added to Margot's playlist!</p>
+            <p style="font-size:14px;color:var(--text-mid);">She's going to love it. Thank you! 🪩</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    <div class="pf-title">Margot will treasure every word 💌</div>
+    <div class="pf-sub">Thank you for sending your love across the miles<br/>Private invitation · Please do not share this link publicly</div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════════
+  PAGE 4 · TRAVEL
+════════════════════════════════════════════ -->
+<div id="page-travel" class="page" role="tabpanel">
+
+  <!-- HOTELS -->
+  <section class="hotels-section">
+    <div class="si">
+      <p class="s-eyebrow ey-purple">Traveling to celebrate?</p>
+      <h2 class="s-title">Places to Stay</h2>
+      <div class="divider"><i>🏨</i></div>
+      <p class="s-sub">We've rounded up some nearby stays to make your trip as easy as possible. Margot will be worth it.</p>
+      <div class="hotel-grid">
+        <div class="hotel-card"><h3>🏨 Hotel One</h3><div class="h-dist">📍 X miles from venue · [TBD]</div><p>Comfortable, family-friendly option close to the venue. Placeholder — Harry &amp; Susan to add real details before publishing.</p><a href="#" class="h-link">View &amp; Book →</a></div>
+        <div class="hotel-card"><h3>🏨 Hotel Two</h3><div class="h-dist">📍 X miles from venue · [TBD]</div><p>Boutique option with pool — great for families with little ones who need to unwind after a big day of dancing. Placeholder.</p><a href="#" class="h-link">View &amp; Book →</a></div>
+        <div class="hotel-card"><h3>🏡 Airbnb Area</h3><div class="h-dist">📍 Search [neighborhood TBD]</div><p>Prefer a home-away-from-home? Search nearby for family-friendly Airbnbs with extra space for the little ones.</p><a href="#" class="h-link">Search Airbnbs →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTY HASHTAG — ✅ Added (was missing in original) -->
+  <section class="hashtag-section">
+    <div class="si">
+      <p class="s-eyebrow ey-gold">Capture the memories</p>
+      <h2 class="s-title">Tag Your Photos</h2>
+      <div class="divider"><i>🪩</i></div>
+      <div class="hashtag-display">#MargotTurnsOne</div>
+      <p class="hashtag-note">Use this hashtag on Instagram and social media so we can collect all the memories in one place!</p>
+      <button class="copy-btn" onclick="copyHashtag()">📋 &nbsp;Copy Hashtag</button>
+      <p class="hashtag-tbd">Hashtag TBD — confirm with Harry &amp; Susan before publishing</p>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    <div class="pf-title">Safe travels, see you on the dance floor 🪩</div>
+    <div class="pf-sub">We'll see you on July 11, 2026<br/>Private invitation · Please do not share this link publicly</div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════════
+  SCRIPTS
+════════════════════════════════════════════ -->
+<script>
+/* ── Tab switching ── */
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => {
+    t.classList.remove('active');
+    t.setAttribute('aria-selected','false');
+  });
+  document.getElementById('page-' + id).classList.add('active');
+  if (btn) {
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected','true');
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ── RSVP optional extras toggle ── */
+function toggleRSVPExtras() {
+  const toggle = document.getElementById('rsvp-opt-toggle');
+  const extras = document.getElementById('rsvp-extras');
+  const isOpen = extras.classList.contains('open');
+  extras.classList.toggle('open', !isOpen);
+  toggle.classList.toggle('open', !isOpen);
+  toggle.setAttribute('aria-expanded', String(!isOpen));
+}
+
+/* ── Toast helper ── */
+function showToast(msg, duration = 2400) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), duration);
+}
+
+/* ── RSVP form handler ── */
+function handleRSVP(e) {
+  e.preventDefault();
+  // In production, Formspree handles real submission
+  // For wireframe demo, show thank-you state directly
+  document.getElementById('rsvp-form').style.display = 'none';
+  document.getElementById('rsvp-thanks').style.display = 'block';
+  showToast('🎉 RSVP received — see you there!');
+  // Confetti!
+  confetti({ particleCount:80, spread:70, origin:{y:0.5},
+    colors:['#F9D5E0','#E2D4F0','#C8DCF0','#F5E6C8','#F2A8BC'], gravity:0.7, scalar:0.85 });
+}
+
+/* ── Generic form handler (wishes, cards, songs) ── */
+function handleForm(e, formId, thanksId) {
+  e.preventDefault();
+  document.getElementById(formId).style.display = 'none';
+  document.getElementById(thanksId).style.display = 'block';
+  showToast('✓ Submitted — thank you!');
+}
+
+/* ── Add to Calendar toggle ── */
+function toggleCal() {
+  const dd = document.getElementById('cal-dropdown');
+  const btn = document.getElementById('cal-trigger');
+  const isOpen = dd.classList.toggle('open');
+  btn.setAttribute('aria-expanded', isOpen);
+  // Close on outside click
+  if (isOpen) {
+    setTimeout(() => {
+      document.addEventListener('click', closeCal, { once: true });
+    }, 0);
+  }
+}
+function closeCal() {
+  document.getElementById('cal-dropdown').classList.remove('open');
+  document.getElementById('cal-trigger').setAttribute('aria-expanded','false');
+}
+
+/* ── Download .ics (Apple / Outlook) ── */
+function downloadICS() {
+  const ics = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//MargotTurnsOne//EN',
+    'BEGIN:VEVENT',
+    'DTSTART:20260711T140000',
+    'DTEND:20260711T170000',
+    'SUMMARY:Margot\'s 1st Birthday Party 🪩',
+    'DESCRIPTION:You\'re invited to celebrate Margot\'s first birthday disco party!',
+    'LOCATION:TBD',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\r\n');
+  const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = 'margot-turns-one.ics';
+  a.click(); URL.revokeObjectURL(url);
+  closeCal();
+  showToast('📅 Calendar file downloaded!');
+}
+
+/* ── Copy hashtag ── */
+function copyHashtag() {
+  const tag = '#MargotTurnsOne';
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(tag).then(() => showToast('✓ Copied! ' + tag));
+  } else {
+    // Fallback
+    const el = document.createElement('input');
+    el.value = tag;
+    document.body.appendChild(el);
+    el.select(); document.execCommand('copy');
+    document.body.removeChild(el);
+    showToast('✓ Copied! ' + tag);
+  }
+}
+
+/* ── Confetti on load ── */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    confetti({ particleCount:65, spread:60, origin:{y:0.5},
+      colors:['#F9D5E0','#E2D4F0','#C8DCF0','#F5E6C8','#F2A8BC','#B8A0D8'],
+      gravity:0.6, scalar:0.82 });
+  }, 700);
+});
+</script>
+
+</body>
+</html>
