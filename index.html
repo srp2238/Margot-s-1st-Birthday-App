@@ -40,7 +40,7 @@
     <div class="welcome-steps">
       <div class="welcome-step">
         <span class="ws-icon ws-home" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8L8 2L14 8M4 7V13H7V10H9V13H12V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2 L8 10 M6 4 L8 2 L10 4 M5 10 L5 14 L11 14 L11 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="5.5" r="1.2" stroke="currentColor" stroke-width="1.2"/><path d="M7 7 Q8 7.5 9 7" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
         </span>
         <div class="ws-text">
           <div class="ws-label">Home</div>
@@ -49,7 +49,7 @@
       </div>
       <div class="welcome-step">
         <span class="ws-icon ws-party" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2V6M5 4L8 6L11 4M3 8H13M4 8V13H12V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="6" r="3" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 7 L4 9 M10.5 7 L12 9 M6 8.5 L6 10 M10 8.5 L10 10 M7 9 L9 9" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 5 L3 3 M12 5 L13 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
         </span>
         <div class="ws-text">
           <div class="ws-label">The Party</div>
@@ -58,7 +58,7 @@
       </div>
       <div class="welcome-step">
         <span class="ws-icon ws-love" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 14S2 10 2 6C2 3.8 3.8 2 6 2C7.1 2 8 2.8 8 2.8S8.9 2 10 2C12.2 2 14 3.8 14 6C14 10 8 14 8 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><ellipse cx="8" cy="7" rx="3" ry="3.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 9.5 L4 12 M11 9.5 L12 12 M6 10 L6 12 M10 10 L10 12" stroke="currentColor" stroke-width="1" stroke-linecap="round"/><circle cx="6.5" cy="5.5" r="0.8" stroke="currentColor" stroke-width="1"/><circle cx="9.5" cy="5.5" r="0.8" stroke="currentColor" stroke-width="1"/></svg>
         </span>
         <div class="ws-text">
           <div class="ws-label">Send Love</div>
@@ -99,6 +99,32 @@
   <!-- HERO -->
   <section class="hero" id="home-hero">
     <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+
+    <!-- Botanical corner flourishes -->
+    <div class="botanical-corner top-left" aria-hidden="true">
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <path d="M60 20 Q70 15, 75 10 M60 20 Q65 25, 70 35 M60 20 Q55 18, 50 15"/>
+        <path d="M45 35 Q50 30, 55 25 M45 35 Q48 42, 50 50"/>
+      </svg>
+    </div>
+    <div class="botanical-corner top-right" aria-hidden="true">
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <path d="M60 20 Q70 15, 75 10 M60 20 Q65 25, 70 35 M60 20 Q55 18, 50 15"/>
+        <path d="M45 35 Q50 30, 55 25 M45 35 Q48 42, 50 50"/>
+      </svg>
+    </div>
+    <div class="botanical-corner bottom-left" aria-hidden="true">
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <path d="M60 20 Q70 15, 75 10 M60 20 Q65 25, 70 35 M60 20 Q55 18, 50 15"/>
+        <path d="M45 35 Q50 30, 55 25 M45 35 Q48 42, 50 50"/>
+      </svg>
+    </div>
+    <div class="botanical-corner bottom-right" aria-hidden="true">
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <path d="M60 20 Q70 15, 75 10 M60 20 Q65 25, 70 35 M60 20 Q55 18, 50 15"/>
+        <path d="M45 35 Q50 30, 55 25 M45 35 Q48 42, 50 50"/>
+      </svg>
+    </div>
 
     <!-- Circular hero photo — preserved -->
     <div class="hero-photo-wrap">
@@ -211,15 +237,33 @@
       </span>
 
       <div class="details-grid">
-        <div class="detail-card">
+        <div class="detail-card" style="position: relative;">
+          <div class="botanical-corner top-left" aria-hidden="true">
+            <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+              <path d="M60 20 Q70 15, 75 10 M60 20 Q65 25, 70 35 M60 20 Q55 18, 50 15"/>
+              <path d="M45 35 Q50 30, 55 25 M45 35 Q48 42, 50 50"/>
+            </svg>
+          </div>
           <div class="d-lbl">Date</div>
           <div class="d-val">Saturday, July 11, 2026</div>
         </div>
-        <div class="detail-card">
+        <div class="detail-card" style="position: relative;">
+          <div class="botanical-corner top-right" aria-hidden="true">
+            <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+              <path d="M60 20 Q70 15, 75 10 M60 20 Q65 25, 70 35 M60 20 Q55 18, 50 15"/>
+              <path d="M45 35 Q50 30, 55 25 M45 35 Q48 42, 50 50"/>
+            </svg>
+          </div>
           <div class="d-lbl">Venue</div>
           <div class="d-val">The Phillips Jungle Hut</div>
         </div>
-        <div class="detail-card">
+        <div class="detail-card" style="position: relative;">
+          <div class="botanical-corner bottom-right" aria-hidden="true">
+            <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+              <path d="M60 20 Q70 15, 75 10 M60 20 Q65 25, 70 35 M60 20 Q55 18, 50 15"/>
+              <path d="M45 35 Q50 30, 55 25 M45 35 Q48 42, 50 50"/>
+            </svg>
+          </div>
           <div class="d-lbl">Address</div>
           <div class="d-val">912 Lawrence St<br/>Houston, TX 77008</div>
         </div>
@@ -421,35 +465,45 @@
       </span>
       <div class="sched-list">
         <div class="sched-row">
-          <span class="sr-dot" aria-hidden="true"></span>
+          <span class="sr-dot" aria-hidden="true">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 3 L8 11 M5 5 L5 11 M11 5 L11 11 M6 6 L10 6 M6 8 L10 8 M6 10 L10 10"/></svg>
+          </span>
           <span class="sr-time">2:00 PM</span>
           <div>
             <div class="sr-event">Gates Open</div>
           </div>
         </div>
         <div class="sched-row">
-          <span class="sr-dot" aria-hidden="true"></span>
+          <span class="sr-dot" aria-hidden="true">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="6" r="2.5"/><path d="M6 8 L6 11 M10 8 L10 11 M5 9 L5 11 M11 9 L11 11 M7 8 L7 10 M9 8 L9 10"/></svg>
+          </span>
           <span class="sr-time">2:15 PM</span>
           <div>
             <div class="sr-event">Explore &amp; Mingle</div>
           </div>
         </div>
         <div class="sched-row">
-          <span class="sr-dot" aria-hidden="true"></span>
+          <span class="sr-dot" aria-hidden="true">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="5.5" r="2.5"/><path d="M5 7 L4 9 M11 7 L12 9 M6 8 L6 11 M10 8 L10 11 M7 9 L9 9"/></svg>
+          </span>
           <span class="sr-time">3:00 PM</span>
           <div>
             <div class="sr-event">The Cake Smash</div>
           </div>
         </div>
         <div class="sched-row">
-          <span class="sr-dot" aria-hidden="true"></span>
+          <span class="sr-dot" aria-hidden="true">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><ellipse cx="8" cy="6" rx="2" ry="2.5"/><path d="M5 8 L4 11 M11 8 L12 11 M6 9 L6 11 M10 9 L10 11"/></svg>
+          </span>
           <span class="sr-time">3:30 PM</span>
           <div>
             <div class="sr-event">Gifts &amp; Books</div>
           </div>
         </div>
         <div class="sched-row">
-          <span class="sr-dot" aria-hidden="true"></span>
+          <span class="sr-dot" aria-hidden="true">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 2 L8 10 M6 4 L8 2 L10 4 M5 10 L5 12 M11 10 L11 12 M7 10 L7 12 M9 10 L9 12"/></svg>
+          </span>
           <span class="sr-time">4:30 PM</span>
           <div>
             <div class="sr-event">The Wild Send-Off</div>
