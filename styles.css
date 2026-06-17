@@ -854,6 +854,70 @@ button { -webkit-tap-highlight-color: transparent; }
   background-image: var(--print-subtle);
   background-size: 260px 220px;
 }
+
+/* Lead-in intro paragraph above the schedule rows */
+.sched-intro {
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 15px;
+  color: var(--text-mid);
+  max-width: 440px;
+  margin: 0 auto 28px;
+  line-height: 1.8;
+  text-align: center;
+}
+.sched-intro strong { color: var(--text-dark); font-weight: 600; }
+
+/* Book callout — soft inline card after the last schedule row */
+.book-callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-top: 24px;
+  padding: 20px 24px;
+  background: var(--white);
+  border-radius: 16px;
+  border: 1px dashed var(--rose);
+  box-shadow: 0 3px 12px rgba(155,123,74,0.06);
+}
+.book-callout .book-icon {
+  flex-shrink: 0;
+  margin: 0;
+  width: 28px;
+  height: 28px;
+  color: var(--deep-rose);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.book-callout .book-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.book-callout-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.book-callout-text strong {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--text-dark);
+  letter-spacing: 0.2px;
+}
+.book-callout-text span {
+  font-family: var(--f-body);
+  font-size: 13.5px;
+  color: var(--text-mid);
+  line-height: 1.7;
+}
+
 .sched-list { display: flex; flex-direction: column; gap: 11px; }
 .sched-row {
   display: flex; align-items: center; gap: 18px;
@@ -918,105 +982,7 @@ button { -webkit-tap-highlight-color: transparent; }
   line-height: 1.5;
 }
 
-/* DRESS CODE */
-.dc-section { background: linear-gradient(135deg, #FFF8F0 0%, #F5F0E0 55%, #EEF5EC 100%); }
-.dc-card {
-  background: var(--white);
-  border-radius: 24px;
-  padding: 44px 30px;
-  text-align: center;
-  box-shadow: 0 8px 32px rgba(155,123,74,0.1);
-  border: 1px solid rgba(212,167,106,0.2);
-}
-.dc-title {
-  font-family: var(--f-display);
-  font-weight: 700;
-  font-size: clamp(26px, 5vw, 40px);
-  color: var(--text-dark);
-  margin-bottom: 10px;
-  letter-spacing: 0.5px;
-}
-.dc-body {
-  font-family: var(--f-body);
-  font-weight: 400;
-  font-size: 15px;
-  color: var(--text-mid);
-  max-width: 420px;
-  margin: 0 auto 22px;
-  line-height: 1.8;
-}
-.tag-row {
-  display: flex; flex-wrap: wrap; justify-content: center;
-  gap: 8px; margin-top: 18px;
-}
-.tag {
-  background: var(--cream);
-  border: 1px solid var(--rose);
-  border-radius: 100px;
-  padding: 7px 16px;
-  font-family: var(--f-body);
-  font-weight: 400;
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--rose-accessible);   /* was --deep-rose — 3.82:1 on cream, failed WCAG AA */
-}
-.tag.p { border-color: var(--soft-purple); color: var(--deep-purple); }
-.tag.b { border-color: var(--sky); color: #6B5030; }   /* was --sky (#9B7B4A) — 3.73:1 on cream, failed WCAG AA */
 
-.award-note {
-  margin-top: 22px;
-  font-family: var(--f-display);
-  font-style: italic;
-  font-size: 14px;
-  color: var(--text-light);
-}
-
-/* BOOK card (inside dress-code section) */
-.book-icon {
-  display: block;
-  margin: 0 auto 14px;
-  width: 32px;
-  height: 32px;
-  color: var(--deep-rose);
-}
-.book-icon svg {
-  width: 100%;
-  height: 100%;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.gift-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-}
-.gift-card {
-  background: var(--white);
-  border-radius: 20px;
-  padding: 32px 26px;
-  text-align: center;
-  box-shadow: 0 4px 16px rgba(155,123,74,0.06);
-  border: 1px solid rgba(212,167,106,0.16);
-}
-.gift-card h3 {
-  font-family: var(--f-display);
-  font-weight: 700;
-  font-size: 22px;
-  color: var(--text-dark);
-  margin-bottom: 10px;
-  letter-spacing: 0.3px;
-}
-.gift-card p {
-  font-family: var(--f-body);
-  font-weight: 400;
-  font-size: 14px;
-  color: var(--text-mid);
-  line-height: 1.8;
-}
 
 /* ═══════════════════════════════════════════
    PAGE 3 · SEND LOVE
@@ -1194,7 +1160,6 @@ button { -webkit-tap-highlight-color: transparent; }
   .field-row { grid-template-columns: 1fr; }
   .wishes-layout { grid-template-columns: 1fr; }
   .details-grid { grid-template-columns: 1fr; }
-  .dc-card { padding: 32px 22px; }
   .card { padding: 22px 18px; }
   .rsvp-card { padding: 0; }
   .nav-bar { padding: 0 16px; }
