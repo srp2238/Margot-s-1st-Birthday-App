@@ -22,14 +22,14 @@ function shareInvite() {
   }
 }
 
-/* ── RSVP decline — navigate to Send Love > Send a Card ── */
+/* ── RSVP decline — navigate to Send Love > Wishes for Margot ── */
 function declineRSVP() {
   var loveTab = document.getElementById('tab-love');
   showPage('love', loveTab);
   setTimeout(function() {
-    var cardSection = document.getElementById('send-card-section');
-    if (cardSection) {
-      cardSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    var wishSection = document.querySelector('.wishes-section');
+    if (wishSection) {
+      wishSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }, 350);
 }

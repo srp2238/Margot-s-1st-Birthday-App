@@ -12,9 +12,9 @@ const SITE_CONFIG = {
     tagline:      "Wild One",
     date:         'Saturday, July 11, 2026',
     dateISO:      '2026-07-11',
-    time:         'TBD',                        // Update when confirmed
-    timeStart:    '14:00',                       // 24h format — update when confirmed
-    timeEnd:      '17:00',                       // 24h format — update when confirmed
+    time:         '3:00 PM – 5:00 PM',
+    timeStart:    '15:00',                       // 3:00 PM CDT
+    timeEnd:      '17:00',                       // 5:00 PM CDT
     venue:        'The Phillips Jungle Hut',
     address:      '912 Lawrence St',
     cityState:    'Houston, TX 77008',

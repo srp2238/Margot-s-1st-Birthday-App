@@ -521,11 +521,12 @@ button { -webkit-tap-highlight-color: transparent; }
   position: relative; z-index: 1;
 }
 
-/* "Wild ONE" — elevated typographic moment */
+/* "Wild ONE" — elevated typographic moment, stacked layout */
 .hero-wild-one {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.18em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
   font-family: var(--f-display);
   font-style: italic;
   font-weight: 700;
@@ -793,7 +794,7 @@ button { -webkit-tap-highlight-color: transparent; }
   text-transform: uppercase;
   text-align: center;
   box-shadow: 0 8px 28px rgba(196,99,58,0.35);
-  animation: pulseOnce 1.8s ease-in-out 2;
+  animation: pulseOnce 1.8s ease-in-out infinite;
   transition: transform 0.15s, box-shadow 0.15s;
 }
 .btn-hero-rsvp:active { transform: scale(0.97); }
@@ -1204,6 +1205,7 @@ button { -webkit-tap-highlight-color: transparent; }
   .detail-card { padding: 24px 16px 22px; }
   .hero { padding: 44px 20px 76px; }
   .hero-name { font-size: 48px; }
+  .hero-wild-one { gap: 2px; }
   .hero-wild-one .word-wild { font-size: 38px; }
   .hero-wild-one .word-one { font-size: 70px; }
   .hero-date-badge { padding: 14px 24px; }
