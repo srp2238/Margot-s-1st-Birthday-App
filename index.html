@@ -366,9 +366,9 @@
 
         <!-- Thank-you state -->
         <div class="rsvp-thanks" id="rsvp-thanks" aria-live="polite">
-          <h3>You&rsquo;re on the list</h3>
-          <p>We&rsquo;re so excited you&rsquo;ll be there to celebrate Margot&rsquo;s big day. See you on July 11th.</p>
-          <div style="margin-top: 28px;">
+          <h3>The jungle awaits!</h3>
+          <p>We&rsquo;re so excited you&rsquo;ll be there to celebrate Margot&rsquo;s big day. See you on July 11th at 3 PM!</p>
+          <div style="margin-top: 28px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
             <div class="cal-wrapper">
               <button class="btn btn-outline" onclick="toggleCal()" aria-expanded="false" id="cal-trigger" style="margin: 0;">
                 Add to Calendar
@@ -382,6 +382,11 @@
                 </a>
               </div>
             </div>
+            <button class="btn btn-ghost rsvp-love-btn"
+                    onclick="showPage('love', document.querySelectorAll('.nav-tab')[2]); window.scrollTo({top:0});"
+                    aria-label="Browse Margot's photo reel and leave her some love">
+              Browse Margot&rsquo;s photo reel &amp; leave her some love
+            </button>
           </div>
         </div>
       </div>

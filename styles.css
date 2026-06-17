@@ -821,6 +821,12 @@ button { -webkit-tap-highlight-color: transparent; }
   font-size: 15px;
   line-height: 1.7;
 }
+.rsvp-love-btn {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  padding: 11px 22px;
+  color: var(--rose-accessible);
+}
 
 .optional-toggle {
   display: flex; align-items: center; gap: 8px;
