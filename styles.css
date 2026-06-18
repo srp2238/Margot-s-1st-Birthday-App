@@ -777,7 +777,9 @@ button { -webkit-tap-highlight-color: transparent; }
 }
 .btn-hero-rsvp-wrap {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
   margin-top: 32px;
 }
 .btn-hero-rsvp-ring {
