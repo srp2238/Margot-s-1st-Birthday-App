@@ -870,6 +870,18 @@ button { -webkit-tap-highlight-color: transparent; }
   max-width: 300px;
   margin: 0 auto;
 }
+.rsvp-thanks-scroll-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding-top: 28px;
+  animation: thanksScrollBounce 1.8s ease-in-out infinite;
+}
+@keyframes thanksScrollBounce {
+  0%, 100% { transform: translateY(0);   opacity: 0.6; }
+  50%       { transform: translateY(4px); opacity: 1; }
+}
 
 /* Shared action button style for RSVP thanks CTAs */
 .rsvp-action-btn {
