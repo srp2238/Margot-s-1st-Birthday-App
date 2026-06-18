@@ -311,6 +311,115 @@ window.addEventListener('load', function() {
 })();
 
 /* ═══════════════════════════════════════════
+   PHOTO LIGHTBOX — tap reel photos to enlarge
+═══════════════════════════════════════════ */
+(function() {
+  var lightbox  = document.getElementById('photo-lightbox');
+  var plbImg    = document.getElementById('plb-img');
+  var plbMonth  = document.getElementById('plb-month');
+  var plbClose  = document.getElementById('plb-close');
+  var plbPrev   = document.getElementById('plb-prev');
+  var plbNext   = document.getElementById('plb-next');
+
+  if (!lightbox) return;
+
+  /* Collect all photo frames that have a real image */
+  var frames = [];
+  var currentIdx = 0;
+
+  function buildFrameList() {
+    frames = Array.from(document.querySelectorAll('.reel-frame.has-photo'));
+  }
+
+  function openLightbox(idx) {
+    buildFrameList();
+    if (!frames.length) return;
+    currentIdx = Math.max(0, Math.min(idx, frames.length - 1));
+    showFrame(currentIdx);
+    lightbox.style.display = 'flex';
+    lightbox.classList.remove('closing');
+    document.body.style.overflow = 'hidden';
+    plbClose.focus();
+  }
+
+  function showFrame(idx) {
+    var frame = frames[idx];
+    var img   = frame.querySelector('img');
+    var month = frame.querySelector('.rf-month');
+    plbImg.src   = img ? img.src : '';
+    plbImg.alt   = img ? img.alt : '';
+    plbMonth.textContent = month ? month.textContent : '';
+    plbPrev.disabled = (idx === 0);
+    plbNext.disabled = (idx === frames.length - 1);
+    /* Re-trigger entrance animation */
+    plbImg.parentElement.style.animation = 'none';
+    plbImg.parentElement.offsetHeight; /* reflow */
+    plbImg.parentElement.style.animation = '';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.add('closing');
+    setTimeout(function() {
+      lightbox.style.display = 'none';
+      lightbox.classList.remove('closing');
+      document.body.style.overflow = '';
+    }, 200);
+  }
+
+  /* Wire up close / prev / next */
+  plbClose.addEventListener('click', closeLightbox);
+  plbPrev.addEventListener('click', function() {
+    if (currentIdx > 0) { currentIdx--; showFrame(currentIdx); }
+  });
+  plbNext.addEventListener('click', function() {
+    if (currentIdx < frames.length - 1) { currentIdx++; showFrame(currentIdx); }
+  });
+
+  /* Tap backdrop to close */
+  lightbox.addEventListener('click', function(e) {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  /* Keyboard: Escape / arrow keys */
+  document.addEventListener('keydown', function(e) {
+    if (lightbox.style.display !== 'flex') return;
+    if (e.key === 'Escape')     { closeLightbox(); }
+    if (e.key === 'ArrowLeft')  { plbPrev.click(); }
+    if (e.key === 'ArrowRight') { plbNext.click(); }
+  });
+
+  /* Touch swipe support */
+  var touchStartX = 0;
+  lightbox.addEventListener('touchstart', function(e) {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  lightbox.addEventListener('touchend', function(e) {
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) { dx < 0 ? plbNext.click() : plbPrev.click(); }
+  }, { passive: true });
+
+  /* Attach click and keyboard handlers to each reel frame */
+  function attachHandlers() {
+    document.querySelectorAll('.reel-frame.has-photo').forEach(function(frame) {
+      frame.addEventListener('click', function() {
+        buildFrameList();
+        openLightbox(frames.indexOf(frame));
+      });
+      frame.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          buildFrameList();
+          openLightbox(frames.indexOf(frame));
+        }
+      });
+    });
+  }
+
+  /* Run once DOM is ready (script is deferred at bottom of body) */
+  attachHandlers();
+})();
+
+/* ═══════════════════════════════════════════
    COUNTDOWN TIMER
 ═══════════════════════════════════════════ */
 (function() {

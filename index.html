@@ -77,6 +77,23 @@
 </div>
 
 <!-- ════════════════════════════════════════════
+  PHOTO LIGHTBOX — enlarges reel photos on tap
+════════════════════════════════════════════ -->
+<div class="photo-lightbox" id="photo-lightbox" role="dialog" aria-modal="true" aria-label="Photo enlarged view" style="display:none;">
+  <button class="plb-close" id="plb-close" aria-label="Close photo">&times;</button>
+  <button class="plb-prev" id="plb-prev" aria-label="Previous photo">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4L7 10L13 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="plb-img-wrap">
+    <img class="plb-img" id="plb-img" src="" alt="" />
+    <span class="plb-month" id="plb-month"></span>
+  </div>
+  <button class="plb-next" id="plb-next" aria-label="Next photo">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</div>
+
+<!-- ════════════════════════════════════════════
   STICKY NAV — single horizontal baseline
 ════════════════════════════════════════════ -->
 <nav class="nav-bar" role="navigation" aria-label="Main navigation">
@@ -621,16 +638,16 @@
       <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M15 6H1M6 1L1 6L6 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
     <div class="reel-scroll" role="region" aria-label="Photo reel of Margot's first year">
-      <div class="reel-frame has-photo"><img src="margot-safari-photos/margot-1.JPG" alt="Margot at 1 month" loading="lazy" onerror="this.parentElement.classList.remove('has-photo')"><span class="rf-month">Month 1</span></div>
-      <div class="reel-frame has-photo"><img src="margot-safari-photos/margot-2.JPG" alt="Margot at 2 months" loading="lazy" onerror="this.parentElement.classList.remove('has-photo')"><span class="rf-month">Month 2</span></div>
-      <div class="reel-frame has-photo"><img src="margot-safari-photos/margot-3.JPG" alt="Margot at 3 months" loading="lazy" onerror="this.parentElement.classList.remove('has-photo')"><span class="rf-month">Month 3</span></div>
-      <div class="reel-frame has-photo"><img src="margot-safari-photos/margot-4.JPG" alt="Margot at 4 months" loading="lazy" onerror="this.parentElement.classList.remove('has-photo')"><span class="rf-month">Month 4</span></div>
-      <div class="reel-frame has-photo"><img src="margot-safari-photos/margot-5.JPG" alt="Margot at 5 months" loading="lazy" onerror="this.parentElement.classList.remove('has-photo')"><span class="rf-month">Month 5</span></div>
-      <div class="reel-frame has-photo"><img src="margot-safari-photos/margot-6.JPG" alt="Margot at 6 months" loading="lazy" onerror="this.parentElement.classList.remove('has-photo')"><span class="rf-month">Month 6</span></div>
-      <div class="reel-frame has-photo"><img src="margot-safari-photos/margot-7.JPG" alt="Margot at 7 months" loading="lazy" onerror="this.parentElement.classList.remove('has-photo')"><span class="rf-month">Month 7</span></div>
-      <div class="reel-frame has-photo"><img src="margot-safari-photos/margot-8.JPG" alt="Margot at 8 months" loading="lazy" onerror="this.parentElement.classList.remove('has-photo')"><span class="rf-month">Month 8</span></div>
-      <div class="reel-frame has-photo"><img src="margot-safari-photos/margot-9.jpeg" alt="Margot at 9 months" loading="lazy" onerror="this.parentElement.classList.remove('has-photo')"><span class="rf-month">Month 9</span></div>
-      <div class="reel-frame has-photo"><img src="margot-safari-photos/margot-10.jpeg" alt="Margot at 10 months" loading="lazy" onerror="this.parentElement.classList.remove('has-photo')"><span class="rf-month">Month 10</span></div>
+      <div class="reel-frame has-photo" role="button" tabindex="0" aria-label="View photo: Margot at 1 month"><img src="margot-safari-photos/margot-1.JPG" alt="Margot at 1 month" loading="lazy" onerror="this.parentElement.classList.remove('has-photo'); this.parentElement.removeAttribute('role'); this.parentElement.removeAttribute('tabindex');"><span class="rf-month">Month 1</span></div>
+      <div class="reel-frame has-photo" role="button" tabindex="0" aria-label="View photo: Margot at 2 months"><img src="margot-safari-photos/margot-2.JPG" alt="Margot at 2 months" loading="lazy" onerror="this.parentElement.classList.remove('has-photo'); this.parentElement.removeAttribute('role'); this.parentElement.removeAttribute('tabindex');"><span class="rf-month">Month 2</span></div>
+      <div class="reel-frame has-photo" role="button" tabindex="0" aria-label="View photo: Margot at 3 months"><img src="margot-safari-photos/margot-3.JPG" alt="Margot at 3 months" loading="lazy" onerror="this.parentElement.classList.remove('has-photo'); this.parentElement.removeAttribute('role'); this.parentElement.removeAttribute('tabindex');"><span class="rf-month">Month 3</span></div>
+      <div class="reel-frame has-photo" role="button" tabindex="0" aria-label="View photo: Margot at 4 months"><img src="margot-safari-photos/margot-4.JPG" alt="Margot at 4 months" loading="lazy" onerror="this.parentElement.classList.remove('has-photo'); this.parentElement.removeAttribute('role'); this.parentElement.removeAttribute('tabindex');"><span class="rf-month">Month 4</span></div>
+      <div class="reel-frame has-photo" role="button" tabindex="0" aria-label="View photo: Margot at 5 months"><img src="margot-safari-photos/margot-5.JPG" alt="Margot at 5 months" loading="lazy" onerror="this.parentElement.classList.remove('has-photo'); this.parentElement.removeAttribute('role'); this.parentElement.removeAttribute('tabindex');"><span class="rf-month">Month 5</span></div>
+      <div class="reel-frame has-photo" role="button" tabindex="0" aria-label="View photo: Margot at 6 months"><img src="margot-safari-photos/margot-6.JPG" alt="Margot at 6 months" loading="lazy" onerror="this.parentElement.classList.remove('has-photo'); this.parentElement.removeAttribute('role'); this.parentElement.removeAttribute('tabindex');"><span class="rf-month">Month 6</span></div>
+      <div class="reel-frame has-photo" role="button" tabindex="0" aria-label="View photo: Margot at 7 months"><img src="margot-safari-photos/margot-7.JPG" alt="Margot at 7 months" loading="lazy" onerror="this.parentElement.classList.remove('has-photo'); this.parentElement.removeAttribute('role'); this.parentElement.removeAttribute('tabindex');"><span class="rf-month">Month 7</span></div>
+      <div class="reel-frame has-photo" role="button" tabindex="0" aria-label="View photo: Margot at 8 months"><img src="margot-safari-photos/margot-8.JPG" alt="Margot at 8 months" loading="lazy" onerror="this.parentElement.classList.remove('has-photo'); this.parentElement.removeAttribute('role'); this.parentElement.removeAttribute('tabindex');"><span class="rf-month">Month 8</span></div>
+      <div class="reel-frame has-photo" role="button" tabindex="0" aria-label="View photo: Margot at 9 months"><img src="margot-safari-photos/margot-9.jpeg" alt="Margot at 9 months" loading="lazy" onerror="this.parentElement.classList.remove('has-photo'); this.parentElement.removeAttribute('role'); this.parentElement.removeAttribute('tabindex');"><span class="rf-month">Month 9</span></div>
+      <div class="reel-frame has-photo" role="button" tabindex="0" aria-label="View photo: Margot at 10 months"><img src="margot-safari-photos/margot-10.jpeg" alt="Margot at 10 months" loading="lazy" onerror="this.parentElement.classList.remove('has-photo'); this.parentElement.removeAttribute('role'); this.parentElement.removeAttribute('tabindex');"><span class="rf-month">Month 10</span></div>
       <!-- Month 11-12 placeholders: soft circle outline with botanical leaf -->
       <div class="reel-frame">
         <span class="rf-placeholder" aria-hidden="true">

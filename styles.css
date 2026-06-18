@@ -1393,6 +1393,113 @@ button { -webkit-tap-highlight-color: transparent; }
 .welcome-dismiss:active { transform: scale(0.97); }
 
 /* ═══════════════════════════════════════════
+   PHOTO LIGHTBOX — full-screen photo viewer
+═══════════════════════════════════════════ */
+.photo-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 20, 10, 0.92);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 60px 16px 40px;
+  opacity: 0;
+  animation: plbFadeIn 0.25s ease forwards;
+}
+.photo-lightbox.closing {
+  animation: plbFadeOut 0.2s ease forwards;
+}
+@keyframes plbFadeIn  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes plbFadeOut { from { opacity: 1; } to { opacity: 0; } }
+
+.plb-img-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  max-width: 480px;
+  max-height: calc(100dvh - 120px);
+  animation: plbImgIn 0.3s ease forwards;
+}
+@keyframes plbImgIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.plb-img {
+  max-width: 100%;
+  max-height: calc(100dvh - 120px);
+  border-radius: 20px;
+  object-fit: contain;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.55);
+  display: block;
+}
+
+.plb-month {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(253,248,240,0.96);
+  color: var(--rose-accessible);
+  font-family: var(--f-body);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.plb-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(253,248,240,0.15);
+  color: var(--cream);
+  font-size: 22px;
+  line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s;
+  z-index: 10;
+}
+.plb-close:hover { background: rgba(253,248,240,0.28); }
+.plb-close:active { transform: scale(0.93); }
+
+.plb-prev,
+.plb-next {
+  flex-shrink: 0;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(253,248,240,0.25);
+  background: rgba(253,248,240,0.1);
+  color: var(--cream);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.plb-prev:hover,
+.plb-next:hover {
+  background: rgba(253,248,240,0.22);
+  border-color: rgba(253,248,240,0.45);
+}
+.plb-prev:active,
+.plb-next:active { transform: scale(0.93); }
+.plb-prev:disabled,
+.plb-next:disabled { opacity: 0.25; pointer-events: none; }
+
+/* Clickable reel frames */
+.reel-frame.has-photo { cursor: pointer; }
+
+/* ═══════════════════════════════════════════
    SECTION SCROLL INDICATORS — pulsing arrows
 ═══════════════════════════════════════════ */
 .section-scroll-hint {
