@@ -775,18 +775,31 @@ button { -webkit-tap-highlight-color: transparent; }
   line-height: 1;
   margin: 8px 0 12px;
 }
+.btn-hero-rsvp-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+.btn-hero-rsvp-ring {
+  display: inline-flex;
+  padding: 5px;
+  border-radius: 100px;
+  border: 1.5px dashed rgba(196,99,58,0.45);
+  animation: ringPulse 2.4s ease-in-out infinite;
+}
+@keyframes ringPulse {
+  0%, 100% { border-color: rgba(196,99,58,0.45); box-shadow: 0 0 0 0 rgba(196,99,58,0); }
+  50% { border-color: rgba(196,99,58,0.75); box-shadow: 0 0 0 5px rgba(196,99,58,0.08); }
+}
 .btn-hero-rsvp {
   display: block;
-  width: 100%;
-  max-width: 320px;
-  margin: 20px auto 12px;
   min-height: 58px;
   border-radius: 100px;
   border: none;
   cursor: pointer;
   background: linear-gradient(135deg, var(--rose-accessible), var(--deep-purple));   /* was deep-rose — white text 4.04:1 on that end, failed WCAG AA */
   color: var(--white);
-  padding: 18px 28px;
+  padding: 18px 36px;
   font-family: var(--f-body);
   font-weight: 400;
   font-size: 13px;
@@ -798,6 +811,35 @@ button { -webkit-tap-highlight-color: transparent; }
   transition: transform 0.15s, box-shadow 0.15s;
 }
 .btn-hero-rsvp:active { transform: scale(0.97); }
+
+/* SECTION SCROLL HINT */
+.section-scroll-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 24px 0 8px;
+  opacity: 0.55;
+}
+.ssh-label {
+  font-family: var(--f-body);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-mid);
+}
+.ssh-arrows {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  color: var(--text-mid);
+  animation: sshBounce 1.6s ease-in-out infinite;
+}
+@keyframes sshBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
 
 /* ═══════════════════════════════════════════
    PAGE 2 · THE PARTY
@@ -822,10 +864,22 @@ button { -webkit-tap-highlight-color: transparent; }
   line-height: 1.7;
 }
 .rsvp-love-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-size: 12px;
   letter-spacing: 0.08em;
-  padding: 11px 22px;
+  padding: 13px 24px;
+  background: linear-gradient(135deg, #F5EDD8, #FFF0E8);
   color: var(--rose-accessible);
+  border: 1.5px solid rgba(196,99,58,0.3);
+  border-radius: 100px;
+  box-shadow: 0 4px 14px rgba(196,99,58,0.12);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.rsvp-love-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(196,99,58,0.2);
 }
 
 .optional-toggle {
@@ -996,6 +1050,24 @@ button { -webkit-tap-highlight-color: transparent; }
 
 /* PHOTO REEL */
 .reel-section { background: linear-gradient(180deg, #F5EDD8, var(--cream)); overflow: hidden; }
+.reel-swipe-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--f-body);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-mid);
+  padding: 0 0 12px;
+  animation: swipeNudge 2.2s ease-in-out infinite;
+}
+@keyframes swipeNudge {
+  0%, 100% { opacity: 0.55; transform: translateX(0); }
+  40% { opacity: 0.9; transform: translateX(3px); }
+  60% { opacity: 0.9; transform: translateX(-3px); }
+}
 .reel-scroll {
   display: flex; gap: 12px;
   overflow-x: auto;
@@ -1056,70 +1128,32 @@ button { -webkit-tap-highlight-color: transparent; }
   display: block;
 }
 
-/* BIRTHDAY WISHES */
+/* WISHES & SONGS — combined side-by-side section */
 .wishes-section {
   background-color: var(--cream);
   background-image: var(--print-subtle);
   background-size: 260px 220px;
 }
-.wishes-layout {
+.wishes-song-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  gap: 32px;
   align-items: start;
 }
-.wish-form-card {
+.wish-song-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.wish-song-col .s-eyebrow { margin-bottom: 0; }
+.wish-song-col .s-sub { margin-bottom: 0; }
+.wish-form-card,
+.song-form-card {
   background: var(--white);
   border-radius: 20px;
   padding: 28px;
   box-shadow: 0 5px 22px rgba(155,123,74,0.08);
   border: 1px solid rgba(212,167,106,0.16);
-}
-.bubbles-lbl {
-  font-family: var(--f-body);
-  font-weight: 400;
-  font-size: 12px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text-light);
-  margin-bottom: 14px;
-}
-.wish-bubbles { display: flex; flex-direction: column; gap: 11px; }
-.wb {
-  background: var(--white);
-  border-radius: 14px;
-  padding: 18px 20px;
-  box-shadow: 0 3px 12px rgba(155,123,74,0.06);
-  border: 1px solid rgba(212,167,106,0.16);
-}
-/* Contributor name — terracotta, Jost Light uppercase, global label treatment */
-.wb-from {
-  font-family: var(--f-body);
-  font-weight: 400;
-  font-size: 12px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--rose-accessible);   /* was --deep-rose — 4.04:1 on white, failed WCAG AA */
-  margin-bottom: 6px;
-}
-.wb-msg {
-  font-family: var(--f-display);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 16px;
-  color: var(--text-dark);
-  line-height: 1.65;
-}
-
-/* ADD A SONG */
-.song-section { background: linear-gradient(135deg, #F5EDD8, #FFF8F0); }
-.song-form-wrap { max-width: 440px; margin: 0 auto; }
-.song-form-card {
-  background: var(--white);
-  border-radius: 20px;
-  padding: 32px;
-  box-shadow: 0 5px 22px rgba(155,123,74,0.08);
-  border: 1px solid rgba(212,167,106,0.2);
 }
 
 /* ═══════════════════════════════════════════
@@ -1164,7 +1198,7 @@ button { -webkit-tap-highlight-color: transparent; }
 @media (max-width: 640px) {
   .si { padding: 52px 18px; }
   .field-row { grid-template-columns: 1fr; }
-  .wishes-layout { grid-template-columns: 1fr; }
+  .wishes-song-grid { grid-template-columns: 1fr; }
   .details-grid { grid-template-columns: 1fr; }
   .card { padding: 22px 18px; }
   .rsvp-card { padding: 0; }

@@ -44,7 +44,7 @@
         </span>
         <div class="ws-text">
           <div class="ws-label">Home</div>
-          <div class="ws-desc">Party details, date, and location. Scroll down to RSVP.</div>
+          <div class="ws-desc">Party details, date, and location.</div>
         </div>
       </div>
       <div class="welcome-step">
@@ -220,10 +220,12 @@
           <span class="cd-lbl">Seconds</span>
         </div>
       </div>
-      <div style="margin-top: 32px;">
-        <button class="btn-hero-rsvp" onclick="showPage('party', document.querySelectorAll('.nav-tab')[1]); window.scrollTo({top:0});" aria-label="RSVP for the party">
-          Give Us a Roar If You Can Come
-        </button>
+      <div class="btn-hero-rsvp-wrap">
+        <div class="btn-hero-rsvp-ring">
+          <button class="btn-hero-rsvp" onclick="showPage('party', document.querySelectorAll('.nav-tab')[1]); window.scrollTo({top:0});" aria-label="RSVP for the party">
+            Give Us a Roar If You Can Come
+          </button>
+        </div>
       </div>
     </div>
   </section>
@@ -309,6 +311,7 @@
           <path d="M32 4 C 28 3, 28 -1, 32 -2 C 36 -1, 36 3, 32 4 Z"/>
         </svg>
       </span>
+      <p class="s-sub" style="margin-bottom: 32px;">We&rsquo;re so glad you&rsquo;re here &mdash; please RSVP so we can make sure everyone is taken care of.</p>
 
       <div class="rsvp-card">
         <form id="rsvp-form" action="https://formspree.io/f/mjgjgeyv" method="POST"
@@ -317,7 +320,7 @@
           <div class="form-group">
             <label for="rsvp-name">Your Name</label>
             <input type="text" id="rsvp-name" name="name"
-                   placeholder="e.g. Sarah Johnson" required autocomplete="name"/>
+                   placeholder="e.g. Papa Dick" required autocomplete="name"/>
           </div>
 
           <div class="form-group">
@@ -380,10 +383,11 @@
                 </a>
               </div>
             </div>
-            <button class="btn btn-ghost rsvp-love-btn"
+            <button class="btn rsvp-love-btn"
                     onclick="showPage('love', document.querySelectorAll('.nav-tab')[2]); window.scrollTo({top:0});"
-                    aria-label="Browse Margot's photo reel and leave her some love">
-              Browse Margot&rsquo;s photo reel &amp; leave her some love
+                    aria-label="See Margot's first year and leave her some love">
+              <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true" style="margin-right:6px; flex-shrink:0;"><rect x="1" y="2.5" width="13" height="10" rx="2" stroke="currentColor" stroke-width="1.4"/><circle cx="5" cy="6.5" r="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M1 10.5L4.5 8L7 10L10 7.5L14 10.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              See Margot&rsquo;s first year &amp; leave her some love
             </button>
           </div>
         </div>
@@ -610,6 +614,12 @@
         </svg>
       </span>
     </div>
+    <!-- Swipe hint -->
+    <div class="reel-swipe-hint" aria-hidden="true">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M1 6H15M10 1L15 6L10 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Swipe to see Margot&rsquo;s first year
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M15 6H1M6 1L1 6L6 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
     <div class="reel-scroll" role="region" aria-label="Photo reel of Margot's first year">
       <div class="reel-frame has-photo"><img src="margot-safari-photos/margot-1.JPG" alt="Margot at 1 month" loading="lazy" onerror="this.parentElement.classList.remove('has-photo')"><span class="rf-month">Month 1</span></div>
       <div class="reel-frame has-photo"><img src="margot-safari-photos/margot-2.JPG" alt="Margot at 2 months" loading="lazy" onerror="this.parentElement.classList.remove('has-photo')"><span class="rf-month">Month 2</span></div>
@@ -660,10 +670,9 @@
     </div>
   </section>
 
-  <!-- BIRTHDAY WISHES -->
+  <!-- WISHES & SONGS -->
   <section class="wishes-section">
     <div class="si">
-      <p class="s-eyebrow ey-green">Wishes for Margot</p>
       <span class="leaf-divider" aria-hidden="true">
         <svg viewBox="0 0 64 22" xmlns="http://www.w3.org/2000/svg">
           <path d="M32 20 V 4"/>
@@ -672,90 +681,65 @@
           <path d="M32 4 C 28 3, 28 -1, 32 -2 C 36 -1, 36 3, 32 4 Z"/>
         </svg>
       </span>
-      <p class="s-sub">Joining us or celebrating from afar &mdash; leave Margot a wish, a memory, or a little piece of wisdom she&rsquo;ll read someday.</p>
-      <div class="wishes-layout">
-        <!-- Wish form -->
-        <div class="wish-form-card">
-          <form id="wish-form" action="https://formspree.io/f/mlgagwjb" method="POST"
-                onsubmit="handleForm(event,'wish-form','wish-thanks')">
-            <div class="form-group">
-              <label for="wish-name">Your Name</label>
-              <input type="text" id="wish-name" name="name" placeholder="e.g. Aunt Jennifer" required autocomplete="name"/>
-            </div>
-            <div class="form-group">
-              <label for="wish-msg">Your Wish for Margot</label>
-              <textarea id="wish-msg" name="message"
-                        placeholder="Write something she&rsquo;ll treasure forever&hellip;" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Leave My Wish</button>
-          </form>
-          <div id="wish-thanks" aria-live="polite" style="display: none; text-align: center; padding: 28px 0;">
-            <p style="font-family: var(--f-display); font-style: italic; font-weight: 700; font-size: 22px; color: var(--rose-accessible); margin-bottom: 8px;">Your wish has been saved for Margot</p>
-            <p style="font-family: var(--f-body); font-size: 14px; color: var(--text-mid);">She&rsquo;ll read it someday and feel so loved.</p>
-          </div>
-        </div>
-        <!-- Sample wishes -->
-        <div>
-          <div class="bubbles-lbl">Sample wishes &mdash; real ones appear here</div>
-          <div class="wish-bubbles">
-            <div class="wb">
-              <div class="wb-from">A Loved One</div>
-              <div class="wb-msg">&ldquo;May your days be full of wonder and your heart always be full of joy.&rdquo;</div>
-            </div>
-            <div class="wb">
-              <div class="wb-from">A Family Friend</div>
-              <div class="wb-msg">&ldquo;Happy first birthday, little one! Here&rsquo;s to a lifetime of adventure.&rdquo;</div>
-            </div>
-            <div class="wb">
-              <div class="wb-from">The Neighbors</div>
-              <div class="wb-msg">&ldquo;Wishing you all the love and laughter in the world.&rdquo;</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      <div class="wishes-song-grid">
 
-  <!-- ADD A SONG -->
-  <section class="song-section">
-    <div class="si" style="text-align: center;">
-      <p class="s-eyebrow ey-gold">Add a Song for Margot</p>
-      <span class="leaf-divider" aria-hidden="true">
-        <svg viewBox="0 0 64 22" xmlns="http://www.w3.org/2000/svg">
-          <path d="M32 20 V 4"/>
-          <path d="M32 14 C 24 14, 18 12, 18 6 C 25 7, 30 10, 32 14 Z"/>
-          <path d="M32 10 C 40 10, 46 8, 46 2 C 39 3, 34 6, 32 10 Z"/>
-          <path d="M32 4 C 28 3, 28 -1, 32 -2 C 36 -1, 36 3, 32 4 Z"/>
-        </svg>
-      </span>
-      <p class="s-sub">Every great adventure needs a soundtrack. Submit a song and we&rsquo;ll add it to Margot&rsquo;s official 1st birthday playlist.</p>
-      <div class="song-form-wrap">
-        <div class="song-form-card">
-          <form id="song-form" action="https://formspree.io/f/xaqaqdeq" method="POST"
-                onsubmit="handleForm(event,'song-form','song-thanks')">
-            <div class="form-group">
-              <label for="song-name">Your Name</label>
-              <input type="text" id="song-name" name="name" placeholder="e.g. Uncle Tim" required autocomplete="name"/>
+        <!-- LEFT: Wish form -->
+        <div class="wish-song-col">
+          <p class="s-eyebrow ey-green" style="text-align: center;">Wishes for Margot</p>
+          <p class="s-sub" style="text-align: center;">Joining us or celebrating from afar &mdash; leave Margot a wish, a memory, or a little piece of wisdom she&rsquo;ll read someday.</p>
+          <div class="wish-form-card">
+            <form id="wish-form" action="https://formspree.io/f/mlgagwjb" method="POST"
+                  onsubmit="handleForm(event,'wish-form','wish-thanks')">
+              <div class="form-group">
+                <label for="wish-name">Your Name</label>
+                <input type="text" id="wish-name" name="name" placeholder="e.g. Auntie Alli" required autocomplete="name"/>
+              </div>
+              <div class="form-group">
+                <label for="wish-msg">Your Wish for Margot</label>
+                <textarea id="wish-msg" name="message"
+                          placeholder="One wild year down, a lifetime of adventures ahead&hellip;" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Leave My Wish</button>
+            </form>
+            <div id="wish-thanks" aria-live="polite" style="display: none; text-align: center; padding: 28px 0;">
+              <p style="font-family: var(--f-display); font-style: italic; font-weight: 700; font-size: 22px; color: var(--rose-accessible); margin-bottom: 8px;">Your wish has been saved for Margot</p>
+              <p style="font-family: var(--f-body); font-size: 14px; color: var(--text-mid);">She&rsquo;ll read it someday and feel so loved.</p>
             </div>
-            <div class="form-group">
-              <label for="song-title">Song Title</label>
-              <input type="text" id="song-title" name="song" placeholder="e.g. Can&rsquo;t Stop the Feeling!" required/>
-            </div>
-            <div class="form-group">
-              <label for="song-artist">Artist</label>
-              <input type="text" id="song-artist" name="artist" placeholder="e.g. Justin Timberlake" required/>
-            </div>
-            <div class="form-group">
-              <label for="song-why">Why this song? (optional)</label>
-              <input type="text" id="song-why" name="reason" placeholder="Makes me think of Margot because&hellip;"/>
-            </div>
-            <button type="submit" class="btn btn-gold">Add to Margot&rsquo;s Playlist</button>
-          </form>
-          <div id="song-thanks" aria-live="polite" style="display: none; text-align: center; padding: 28px 0;">
-            <p style="font-family: var(--f-display); font-style: italic; font-weight: 700; font-size: 22px; color: var(--gold-text); margin-bottom: 8px;">Added to Margot&rsquo;s playlist</p>
-            <p style="font-family: var(--f-body); font-size: 14px; color: var(--text-mid);">She&rsquo;s going to love it. Thank you.</p>
           </div>
         </div>
+
+        <!-- RIGHT: Song form -->
+        <div class="wish-song-col">
+          <p class="s-eyebrow ey-gold" style="text-align: center;">Songs for Margot</p>
+          <p class="s-sub" style="text-align: center;">Every great adventure needs a soundtrack. Submit a song and we&rsquo;ll add it to Margot&rsquo;s official 1st birthday playlist.</p>
+          <div class="song-form-card">
+            <form id="song-form" action="https://formspree.io/f/xaqaqdeq" method="POST"
+                  onsubmit="handleForm(event,'song-form','song-thanks')">
+              <div class="form-group">
+                <label for="song-name">Your Name</label>
+                <input type="text" id="song-name" name="name" placeholder="e.g. Nana" required autocomplete="name"/>
+              </div>
+              <div class="form-group">
+                <label for="song-title">Song Title</label>
+                <input type="text" id="song-title" name="song" placeholder="e.g. Jungle Boogie" required/>
+              </div>
+              <div class="form-group">
+                <label for="song-artist">Artist</label>
+                <input type="text" id="song-artist" name="artist" placeholder="e.g. Kool &amp; The Gang" required/>
+              </div>
+              <div class="form-group">
+                <label for="song-why">Why this song? (optional)</label>
+                <input type="text" id="song-why" name="reason" placeholder="Makes me think of Margot because&hellip;"/>
+              </div>
+              <button type="submit" class="btn btn-gold">Add to Margot&rsquo;s Playlist</button>
+            </form>
+            <div id="song-thanks" aria-live="polite" style="display: none; text-align: center; padding: 28px 0;">
+              <p style="font-family: var(--f-display); font-style: italic; font-weight: 700; font-size: 22px; color: var(--gold-text); margin-bottom: 8px;">Added to Margot&rsquo;s playlist</p>
+              <p style="font-family: var(--f-body); font-size: 14px; color: var(--text-mid);">She&rsquo;s going to love it. Thank you.</p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
