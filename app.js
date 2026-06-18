@@ -253,8 +253,10 @@ window.addEventListener('load', function() {
     try { localStorage.setItem(STORAGE_KEY, '1'); } catch(e) {}
   }
 
-  /* TESTING MODE — always show modal on load. Restore first-visit check before sending invite. */
-  setTimeout(showModal, 1600);
+  /* Show modal only on first visit */
+  try {
+    if (!localStorage.getItem(STORAGE_KEY)) setTimeout(showModal, 1600);
+  } catch(e) { setTimeout(showModal, 1600); }
 
   dismissBtn.addEventListener('click', hideModal);
 
