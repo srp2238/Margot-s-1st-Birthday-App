@@ -298,6 +298,41 @@ window.addEventListener('load', function() {
 })();
 
 /* ═══════════════════════════════════════════
+   REEL SCROLL-UP NUDGE
+   Shows a fixed "See Margot's photos" pill when the photo reel
+   has been scrolled above the viewport on the Send Love page.
+═══════════════════════════════════════════ */
+(function() {
+  var nudge    = document.getElementById('reel-scroll-up');
+  var reel     = document.querySelector('.reel-section');
+  var lovePage = document.getElementById('page-love');
+  if (!nudge || !reel || !lovePage) return;
+
+  var reelVisible = true; /* assume visible on load */
+
+  var observer = new IntersectionObserver(function(entries) {
+    reelVisible = entries[0].isIntersecting;
+    /* Only show nudge when on the Send Love page */
+    var onLovePage = lovePage.classList.contains('active');
+    nudge.hidden = reelVisible || !onLovePage;
+  }, { threshold: 0.05 });
+
+  observer.observe(reel);
+
+  nudge.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* Re-evaluate when switching to/from Send Love tab */
+  var origShowPage = window.showPage;
+  window.showPage = function(id, btn) {
+    origShowPage(id, btn);
+    var onLovePage = (id === 'love');
+    nudge.hidden = reelVisible || !onLovePage;
+  };
+})();
+
+/* ═══════════════════════════════════════════
    RESTORE SUBMITTED FORM STATES
    (so refreshing doesn't reset thank-you screens)
 ═══════════════════════════════════════════ */
