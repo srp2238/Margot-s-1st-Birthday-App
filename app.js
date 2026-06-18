@@ -94,6 +94,11 @@ function showThanksState(formId, thanksId) {
   var thanks = document.getElementById(thanksId);
   if (form) form.style.display = 'none';
   if (thanks) thanks.style.display = 'block';
+  /* Hide RSVP section intro text when the RSVP thanks state shows */
+  if (formId === 'rsvp-form') {
+    var intro = document.getElementById('rsvp-intro');
+    if (intro) intro.style.display = 'none';
+  }
 }
 
 /* ── RSVP form handler ── */

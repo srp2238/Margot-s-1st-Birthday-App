@@ -399,7 +399,7 @@ button { -webkit-tap-highlight-color: transparent; }
 /* ═══════════════════════════════════════════
    ADD TO CALENDAR DROPDOWN
 ═══════════════════════════════════════════ */
-.cal-wrapper { position: relative; display: inline-block; width: 100%; max-width: 320px; margin: 0 auto; }
+.cal-wrapper { position: relative; display: inline-block; width: 100%; max-width: 300px; margin: 0 auto; }
 .cal-dropdown {
   position: absolute; top: calc(100% + 8px); left: 0; right: 0;
   background: var(--white);
@@ -849,37 +849,59 @@ button { -webkit-tap-highlight-color: transparent; }
 .rsvp-card { max-width: 540px; margin: 0 auto; }
 
 .rsvp-thanks {
-  display: none; text-align: center; padding: 40px 20px;
+  display: none; text-align: center; padding: 40px 20px 32px;
 }
 .rsvp-thanks h3 {
-  font-family: var(--f-display);
-  font-weight: 700;
-  font-size: 30px;
+  font-family: var(--f-script);
+  font-weight: 400;
+  font-size: 42px;
   color: var(--deep-rose);
   margin-bottom: 10px;
+  line-height: 1.1;
 }
 .rsvp-thanks p {
   color: var(--text-mid);
   font-size: 15px;
   line-height: 1.7;
+  max-width: 300px;
+  margin: 0 auto;
 }
-.rsvp-love-btn {
+
+/* Shared action button style for RSVP thanks CTAs */
+.rsvp-action-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  max-width: 300px;
+  font-family: var(--f-body);
+  font-weight: 400;
   font-size: 12px;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   padding: 13px 24px;
-  background: linear-gradient(135deg, #F5EDD8, #FFF0E8);
+  background: transparent;
   color: var(--rose-accessible);
-  border: 1.5px solid rgba(196,99,58,0.3);
+  border: 1.5px solid rgba(196,99,58,0.35);
   border-radius: 100px;
-  box-shadow: 0 4px 14px rgba(196,99,58,0.12);
-  transition: transform 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
 }
-.rsvp-love-btn:hover {
+.rsvp-action-btn:hover {
+  background: rgba(196,99,58,0.06);
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(196,99,58,0.2);
+}
+.rsvp-action-btn:active { transform: scale(0.97); }
+
+/* Warm-fill variant — soft gradient background */
+.rsvp-action-btn--warm {
+  background: linear-gradient(135deg, #F5EDD8, #FFF0E8);
+  border-color: rgba(196,99,58,0.25);
+  box-shadow: 0 3px 12px rgba(196,99,58,0.1);
+}
+.rsvp-action-btn--warm:hover {
+  background: linear-gradient(135deg, #F0E6CC, #FAE8DE);
+  box-shadow: 0 5px 16px rgba(196,99,58,0.18);
 }
 
 .optional-toggle {
